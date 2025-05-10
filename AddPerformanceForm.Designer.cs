@@ -209,6 +209,7 @@
             this.Controls.Add(this.labelName);
             this.Name = "AddPerformanceForm";
             this.Text = "AddPerformanceForm";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHours)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMinutes)).EndInit();
             this.ResumeLayout(false);

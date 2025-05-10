@@ -43,33 +43,33 @@
             this.buttonAddPerformance.Name = "buttonAddPerformance";
             this.buttonAddPerformance.Size = new System.Drawing.Size(160, 50);
             this.buttonAddPerformance.TabIndex = 0;
-            this.buttonAddPerformance.Text = "Добавить спектакль";
+            this.buttonAddPerformance.Text = "Спектакли";
             this.buttonAddPerformance.UseVisualStyleBackColor = true;
             this.buttonAddPerformance.Click += new System.EventHandler(this.buttonAddPerformance_Click);
             // 
             // buttonAddTheater
             // 
-            this.buttonAddTheater.Location = new System.Drawing.Point(114, 195);
+            this.buttonAddTheater.Location = new System.Drawing.Point(114, 163);
             this.buttonAddTheater.Name = "buttonAddTheater";
             this.buttonAddTheater.Size = new System.Drawing.Size(160, 50);
             this.buttonAddTheater.TabIndex = 1;
-            this.buttonAddTheater.Text = "Добавить театр";
+            this.buttonAddTheater.Text = "Театры";
             this.buttonAddTheater.UseVisualStyleBackColor = true;
             this.buttonAddTheater.Click += new System.EventHandler(this.buttonAddTheater_Click);
             // 
             // buttonGenre
             // 
-            this.buttonGenre.Location = new System.Drawing.Point(114, 343);
+            this.buttonGenre.Location = new System.Drawing.Point(114, 260);
             this.buttonGenre.Name = "buttonGenre";
             this.buttonGenre.Size = new System.Drawing.Size(160, 50);
             this.buttonGenre.TabIndex = 2;
-            this.buttonGenre.Text = "Добавить жанр спектакля";
+            this.buttonGenre.Text = "Жанры спектакля";
             this.buttonGenre.UseVisualStyleBackColor = true;
             this.buttonGenre.Click += new System.EventHandler(this.buttonGenre_Click);
             // 
             // buttonAddSeatCategory
             // 
-            this.buttonAddSeatCategory.Location = new System.Drawing.Point(496, 195);
+            this.buttonAddSeatCategory.Location = new System.Drawing.Point(496, 163);
             this.buttonAddSeatCategory.Name = "buttonAddSeatCategory";
             this.buttonAddSeatCategory.Size = new System.Drawing.Size(160, 50);
             this.buttonAddSeatCategory.TabIndex = 3;
@@ -79,17 +79,17 @@
             // 
             // buttonAddDiscount
             // 
-            this.buttonAddDiscount.Location = new System.Drawing.Point(496, 64);
+            this.buttonAddDiscount.Location = new System.Drawing.Point(114, 355);
             this.buttonAddDiscount.Name = "buttonAddDiscount";
             this.buttonAddDiscount.Size = new System.Drawing.Size(160, 50);
             this.buttonAddDiscount.TabIndex = 4;
-            this.buttonAddDiscount.Text = "Добавить скидки";
+            this.buttonAddDiscount.Text = "Скидки";
             this.buttonAddDiscount.UseVisualStyleBackColor = true;
             this.buttonAddDiscount.Click += new System.EventHandler(this.buttonAddDiscount_Click);
             // 
             // buttonReports
             // 
-            this.buttonReports.Location = new System.Drawing.Point(496, 273);
+            this.buttonReports.Location = new System.Drawing.Point(496, 260);
             this.buttonReports.Name = "buttonReports";
             this.buttonReports.Size = new System.Drawing.Size(160, 50);
             this.buttonReports.TabIndex = 5;

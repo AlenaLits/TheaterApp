@@ -152,11 +152,35 @@
     <Compile Include="ClientRegistrationForm.Designer.cs">
       <DependentUpon>ClientRegistrationForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="DiscountListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DiscountListForm.Designer.cs">
+      <DependentUpon>DiscountListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GenreListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GenreListForm.Designer.cs">
+      <DependentUpon>GenreListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HallListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HallListForm.Designer.cs">
+      <DependentUpon>HallListForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PerformanceListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PerformanceListForm.Designer.cs">
+      <DependentUpon>PerformanceListForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -165,6 +189,12 @@
     </Compile>
     <Compile Include="RegistrationForm.Designer.cs">
       <DependentUpon>RegistrationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TheaterListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TheaterListForm.Designer.cs">
+      <DependentUpon>TheaterListForm.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="AddCategorySeatsForm.resx">
       <DependentUpon>AddCategorySeatsForm.cs</DependentUpon>
@@ -193,8 +223,20 @@
     <EmbeddedResource Include="ClientRegistrationForm.resx">
       <DependentUpon>ClientRegistrationForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DiscountListForm.resx">
+      <DependentUpon>DiscountListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GenreListForm.resx">
+      <DependentUpon>GenreListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HallListForm.resx">
+      <DependentUpon>HallListForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PerformanceListForm.resx">
+      <DependentUpon>PerformanceListForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -207,6 +249,9 @@
     </Compile>
     <EmbeddedResource Include="RegistrationForm.resx">
       <DependentUpon>RegistrationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TheaterListForm.resx">
+      <DependentUpon>TheaterListForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

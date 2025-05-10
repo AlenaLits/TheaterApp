@@ -19,25 +19,25 @@ namespace TheaterApp
 
         private void buttonAddPerformance_Click(object sender, EventArgs e)
         {
-            var form = new AddPerformanceForm();
+            var form = new PerformanceListForm();
             form.ShowDialog();
         }
 
         private void buttonAddTheater_Click(object sender, EventArgs e)
         {
-            var form = new AddTheatreForm();
+            var form = new TheaterListForm();
             form.ShowDialog();
         }
 
         private void buttonGenre_Click(object sender, EventArgs e)
         {
-            var form = new AddGenreForm();
+            var form = new GenreListForm();
             form.ShowDialog();
         }
 
         private void buttonAddDiscount_Click(object sender, EventArgs e)
         {
-            var form = new AddDiscountForm();
+            var form = new DiscountListForm();
             form.ShowDialog();
         }
 

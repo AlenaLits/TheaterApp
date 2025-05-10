@@ -1,27 +1,83 @@
 ﻿using Npgsql;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.IO;
+using System.Text;
+using System.Windows.Forms;
 
 namespace TheaterApp
 {
     public partial class AddHallForm : Form
     {
         private readonly int theatreId;
+        private readonly int? hallIdToEdit = null;
         private byte[] svgData;
+
         public AddHallForm(int theatreId)
         {
             InitializeComponent();
             this.theatreId = theatreId;
             this.webBrowser1.DocumentCompleted += new WebBrowserDocumentCompletedEventHandler(this.webBrowser1_DocumentCompleted);
+        }
 
+        // Конструктор для редактирования зала
+        public AddHallForm(int theatreId, int hallId, string name, int capacity)
+        {
+            InitializeComponent();
+            this.theatreId = theatreId;
+            this.hallIdToEdit = hallId;
+
+            textBoxHallName.Text = name;
+            numericUpDownSeats.Value = capacity;
+
+            this.webBrowser1.DocumentCompleted += new WebBrowserDocumentCompletedEventHandler(this.webBrowser1_DocumentCompleted);
+
+            LoadSvgFromDatabase(hallId);
+        }
+
+        private void LoadSvgFromDatabase(int hallId)
+        {
+            using (var conn = new NpgsqlConnection("Host=localhost;Username=postgres;Password=0813;Database=\"Theatres\""))
+            {
+                conn.Open();
+                var cmd = new NpgsqlCommand("SELECT \"SchemeHalls\" FROM public.\"Halls\" WHERE \"idHalls\" = @id", conn);
+                cmd.Parameters.AddWithValue("id", hallId);
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read() && !reader.IsDBNull(0))
+                    {
+                        svgData = (byte[])reader["SchemeHalls"];
+                        string svgContent = Encoding.UTF8.GetString(svgData);
+                        string htmlContent = $@"
+<html>
+    <head>
+        <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+        <style>
+            path {{
+                fill: blue;
+                stroke: black;
+                stroke-width: 2;
+            }}
+            rect {{
+                fill: blue;
+                stroke: black;
+                stroke-width: 2;
+            }}
+        </style>
+        <script>
+            function elementClick(id) {{
+                alert('Вы кликнули по месту с ID: ' + id);
+            }}
+        </script>
+    </head>
+    <body>
+        {svgContent}
+    </body>
+</html>";
+                        webBrowser1.DocumentText = htmlContent;
+                    }
+                }
+            }
         }
 
         private void buttonAdd_Click(object sender, EventArgs e)
@@ -36,32 +92,31 @@ namespace TheaterApp
 
                     string svgContent = File.ReadAllText(ofd.FileName, Encoding.UTF8);
                     string htmlContent = $@"
-    <html>
-        <head>
-            <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-            <style>
-                path {{
-                    fill: blue;  /* Цвет для всех мест */
-                    stroke: black;
-                    stroke-width: 2;
-                }}
-                rect {{
-                    fill: blue;  /* Цвет для прямоугольников */
-                    stroke: black;
-                    stroke-width: 2;
-                }}
-                /* Дополнительные стили для других элементов SVG */
-            </style>
-            <script>
-                function elementClick(id) {{
-                    alert('Вы кликнули по месту с ID: ' + id);
-                }}
-            </script>
-        </head>
-        <body>
-            {svgContent}
-        </body>
-    </html>";
+<html>
+    <head>
+        <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+        <style>
+            path {{
+                fill: blue;
+                stroke: black;
+                stroke-width: 2;
+            }}
+            rect {{
+                fill: blue;
+                stroke: black;
+                stroke-width: 2;
+            }}
+        </style>
+        <script>
+            function elementClick(id) {{
+                alert('Вы кликнули по месту с ID: ' + id);
+            }}
+        </script>
+    </head>
+    <body>
+        {svgContent}
+    </body>
+</html>";
 
                     webBrowser1.DocumentText = htmlContent;
                 }
@@ -82,25 +137,43 @@ namespace TheaterApp
             using (var conn = new NpgsqlConnection("Host=localhost;Username=postgres;Password=0813;Database=\"Theatres\""))
             {
                 conn.Open();
-                var cmd = new NpgsqlCommand("INSERT INTO public.\"Halls\" (\"Theaters\", \"NameHalls\", \"CountSeats\", \"SchemeHalls\") VALUES (@theatre, @name, @count, @scheme)", conn);
-                cmd.Parameters.AddWithValue("theatre", theatreId);
-                cmd.Parameters.AddWithValue("name", hallName);
-                cmd.Parameters.AddWithValue("count", seatsCount);
-                cmd.Parameters.AddWithValue("scheme", svgData);
-                cmd.ExecuteNonQuery();
-            }
 
-            MessageBox.Show("Зал добавлен!");
+                if (hallIdToEdit.HasValue)
+                {
+                    // Режим редактирования
+                    var cmd = new NpgsqlCommand("UPDATE public.\"Halls\" SET \"NameHalls\" = @name, \"CountSeats\" = @count, \"SchemeHalls\" = @scheme WHERE \"idHalls\" = @id", conn);
+                    cmd.Parameters.AddWithValue("name", hallName);
+                    cmd.Parameters.AddWithValue("count", seatsCount);
+                    cmd.Parameters.AddWithValue("scheme", svgData);
+                    cmd.Parameters.AddWithValue("id", hallIdToEdit.Value);
+                    cmd.ExecuteNonQuery();
+
+                    MessageBox.Show("Зал успешно обновлён!");
+                }
+                else
+                {
+                    // Режим добавления
+                    var cmd = new NpgsqlCommand("INSERT INTO public.\"Halls\" (\"Theaters\", \"NameHalls\", \"CountSeats\", \"SchemeHalls\") VALUES (@theatre, @name, @count, @scheme)", conn);
+                    cmd.Parameters.AddWithValue("theatre", theatreId);
+                    cmd.Parameters.AddWithValue("name", hallName);
+                    cmd.Parameters.AddWithValue("count", seatsCount);
+                    cmd.Parameters.AddWithValue("scheme", svgData);
+                    cmd.ExecuteNonQuery();
+
+                    MessageBox.Show("Зал добавлен!");
+                }
+            }
+            this.DialogResult = DialogResult.OK;
             this.Close();
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
             DialogResult result = MessageBox.Show(
-            "Вы уверены, что хотите отменить и закрыть форму?",
-            "Отменить подтверждение",
-            MessageBoxButtons.YesNo,
-            MessageBoxIcon.Question);
+                "Вы уверены, что хотите отменить и закрыть форму?",
+                "Отменить подтверждение",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
 
             if (result == DialogResult.Yes)
             {
@@ -118,13 +191,14 @@ namespace TheaterApp
             {
                 foreach (HtmlElement element in webBrowser1.Document.GetElementsByTagName(tag))
                 {
-                    element.AttachEventHandler("onclick", delegate {
+                    element.AttachEventHandler("onclick", delegate
+                    {
                         Element_Click(element);
                     });
                 }
             }
-
         }
+
         private void Element_Click(HtmlElement element)
         {
             string id = element.GetAttribute("id");

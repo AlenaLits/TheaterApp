@@ -2,11 +2,29 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace TheaterApp
 {
     public partial class AddPerformanceForm : Form
     {
+        private int? performanceId = null;
+
+        // Конструктор для редактирования
+        public AddPerformanceForm(int performanceId, string name, string description, string genre, string ageRestrictions, int duration)
+        {
+            InitializeComponent();
+            this.Load += new EventHandler(this.AddPerformanceForm_Load);
+            this.performanceId = performanceId;
+            textBoxName.Text = name;
+            textBoxDescription.Text = description;
+            comboBoxGenre.SelectedItem = genre;
+            comboBoxAgeRating.SelectedItem = ageRestrictions;
+            int hours = duration / 60;
+            int minutes = duration - hours * 60;
+            numericUpDownHours.Value = hours;
+            numericUpDownMinutes.Value = minutes;
+        }
         public AddPerformanceForm()
         {
             InitializeComponent();
@@ -17,18 +35,6 @@ namespace TheaterApp
         {
             LoadGenres();
             LoadAgeRatings();
-        }
-
-        // Класс для жанров
-        public class ComboBoxItem
-        {
-            public string Text { get; set; }
-            public int Value { get; set; }
-
-            public override string ToString()
-            {
-                return Text;
-            }
         }
 
         // Класс для возрастных ограничений
@@ -147,23 +153,47 @@ namespace TheaterApp
             // Основной запрос на вставку данных
             using (var conn = new NpgsqlConnection("Host=localhost;Username=postgres;Password=0813;Database=\"Theatres\""))
             {
+                
                 conn.Open();
-                var cmd = new NpgsqlCommand("INSERT INTO public.\"Performances\" (\"NamePerformances\", \"Description\", \"Duration\", \"Genre\", \"AgeRestrictions\") VALUES (@name, @desc, @duration, @genre, @age)", conn);
-                cmd.Parameters.AddWithValue("name", name);
-                cmd.Parameters.AddWithValue("desc", description);
-                cmd.Parameters.AddWithValue("duration", totalMinutes);
-                cmd.Parameters.AddWithValue("genre", genreId);
-                cmd.Parameters.AddWithValue("age", ageRatingId);
-                cmd.ExecuteNonQuery();
-            }
+                if (performanceId == null)
+                {
+                    // Проверка на уникальность имени
+                    var checkCmd = new NpgsqlCommand("SELECT COUNT(*) FROM public.\"Performances\" WHERE \"NamePerformances\" = @name", conn);
+                    checkCmd.Parameters.AddWithValue("name", name);
+                    var count = (long)checkCmd.ExecuteScalar();
 
-            MessageBox.Show("Спекталь добавлен!.");
+                    if (count > 0)
+                    {
+                        MessageBox.Show("Спектакль с таким названием уже существует.");
+                        return;
+                    }
+                    var cmd = new NpgsqlCommand("INSERT INTO public.\"Performances\" (\"NamePerformances\", \"Description\", \"Duration\", \"Genre\", \"AgeRestrictions\") VALUES (@name, @desc, @duration, @genre, @age)", conn);
+                    cmd.Parameters.AddWithValue("name", name);
+                    cmd.Parameters.AddWithValue("desc", description);
+                    cmd.Parameters.AddWithValue("duration", totalMinutes);
+                    cmd.Parameters.AddWithValue("genre", genreId);
+                    cmd.Parameters.AddWithValue("age", ageRatingId);
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Спекталь добавлен!");
+                }
+                else
+                {
+                    // Обновление существующего спектакля
+                    var cmd = new NpgsqlCommand("UPDATE public.\"Performances\" SET \"NamePerformances\" = @name, \"Description\" = @description, \"Duration\" = @duration, \"Genre\" = @genre, \"AgeRestrictions\" = @ageRestrictions WHERE \"idPerformances\" = @id", conn);
+                    cmd.Parameters.AddWithValue("name", name);
+                    cmd.Parameters.AddWithValue("description", description);
+                    cmd.Parameters.AddWithValue("duration", totalMinutes);
+                    cmd.Parameters.AddWithValue("genre", genreId);
+                    cmd.Parameters.AddWithValue("ageRestrictions", ageRatingId);
+                    cmd.Parameters.AddWithValue("id", performanceId.Value);
+                    cmd.ExecuteNonQuery();
+
+                    MessageBox.Show("Спектакль обновлён!");
+                }
+            }
+            this.DialogResult = DialogResult.OK;
             this.Close();
         }
-
-
-
-
         // Отмена
         private void buttonCancel_Click(object sender, EventArgs e)
         {

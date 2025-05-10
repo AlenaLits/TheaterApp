@@ -13,14 +13,28 @@ namespace TheaterApp
 {
     public partial class AddDiscountForm : Form
     {
+        private int? discountsId = null;
         public AddDiscountForm()
         {
             InitializeComponent();
+            this.Load += new EventHandler(this.AddDiscountForm_Load);
         }
 
         private void AddDiscountForm_Load(object sender, EventArgs e)
         {
             LoadDiscount();
+        }
+        // Конструктор для редактирования
+        public AddDiscountForm(int discountsId, string name, string description, string type, DateTime period, double value)
+        {
+            InitializeComponent();
+            this.Load += new EventHandler(this.AddDiscountForm_Load);
+            this.discountsId = discountsId;
+            textBoxName.Text = name;
+            textBoxDescription.Text = description;
+            comboBoxType.SelectedItem = type;
+            dateTimePickerDate.Value = period;
+            textBoxValue.Text = value.ToString();
         }
         private void LoadDiscount()
         {
@@ -80,16 +94,42 @@ namespace TheaterApp
             using (var conn = new NpgsqlConnection("Host=localhost;Username=postgres;Password=0813;Database=\"Theatres\""))
             {
                 conn.Open();
-                var cmd = new NpgsqlCommand("INSERT INTO public.\"Discounts\" (\"NameDiscounts\", \"Description\", \"TypeDiscount\", \"ValidityPeriod\", \"Value\") VALUES (@name, @desc, @type, @date, @value)", conn);
-                cmd.Parameters.AddWithValue("name", name);
-                cmd.Parameters.AddWithValue("desc", description);
-                cmd.Parameters.AddWithValue("type", typeId);
-                cmd.Parameters.AddWithValue("date", date);
-                cmd.Parameters.AddWithValue("value", value);
-                cmd.ExecuteNonQuery();
-            }
+                if (discountsId == null)
+                {
+                    // Проверка на уникальность имени
+                    var checkCmd = new NpgsqlCommand("SELECT COUNT(*) FROM public.\"Discounts\" WHERE \"NameDiscounts\" = @name", conn);
+                    checkCmd.Parameters.AddWithValue("name", name);
+                    var count = (long)checkCmd.ExecuteScalar();
+                    if (count > 0)
+                    {
+                        MessageBox.Show("Скидка с таким названием уже существует.");
+                        return;
+                    }
+                    var cmd = new NpgsqlCommand("INSERT INTO public.\"Discounts\" (\"NameDiscounts\", \"Description\", \"TypeDiscount\", \"ValidityPeriod\", \"Value\") VALUES (@name, @desc, @type, @date, @value)", conn);
+                    cmd.Parameters.AddWithValue("name", name);
+                    cmd.Parameters.AddWithValue("desc", description);
+                    cmd.Parameters.AddWithValue("type", typeId);
+                    cmd.Parameters.AddWithValue("date", date);
+                    cmd.Parameters.AddWithValue("value", value);
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Скидка добавлена!");
+                }
+                else
+                {
+                    // Обновление существующего спектакля
+                    var cmd = new NpgsqlCommand("UPDATE public.\"Discounts\" SET \"NameDiscounts\" = @name, \"Description\" = @description, \"TypeDiscount\" = @type, \"ValidityPeriod\" = @period, \"Value\" = @value WHERE \"idDiscounts\" = @id", conn);
+                    cmd.Parameters.AddWithValue("name", name);
+                    cmd.Parameters.AddWithValue("description", description);
+                    cmd.Parameters.AddWithValue("type", typeId);
+                    cmd.Parameters.AddWithValue("period", date);
+                    cmd.Parameters.AddWithValue("value", value);
+                    cmd.Parameters.AddWithValue("id", discountsId.Value);
+                    cmd.ExecuteNonQuery();
 
-            MessageBox.Show("Скидка добавлена!.");
+                    MessageBox.Show("Скидка обновлена!");
+                }
+            }
+            this.DialogResult = DialogResult.OK;
             this.Close();
         }
 
