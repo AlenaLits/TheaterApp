@@ -12,9 +12,34 @@ namespace TheaterApp
 {
     public partial class ClientForm : Form
     {
-        public ClientForm()
+        private int clientId;
+        public ClientForm(int clientId)
         {
             InitializeComponent();
+            this.clientId = clientId;
+        }
+
+        private void ClientForm_Load(object sender, EventArgs e)
+        {
+            // Можно стилизовать или добавить приветствие
+        }
+
+        private void btnTheaters_Click(object sender, EventArgs e)
+        {
+            var form = new ClientsTheaterForm(clientId);
+            form.ShowDialog();
+        }
+
+        private void btnPerformances_Click(object sender, EventArgs e)
+        {
+            //var form = new ClientsPerformanceForm(clientId);
+            //form.ShowDialog();
+        }
+
+        private void btnMyTickets_Click(object sender, EventArgs e)
+        {
+            //var form = new MyTicketsForm(clientId);
+            //form.ShowDialog();
         }
     }
 }

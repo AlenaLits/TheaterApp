@@ -25,7 +25,7 @@ namespace TheaterApp
                     if (loginForm.Role == "admin")
                         Application.Run(new AdminForm());
                     else if (loginForm.Role == "client")
-                        Application.Run(new ClientForm());
+                        Application.Run(new ClientForm(loginForm.UserId));
                 }
             }
         }

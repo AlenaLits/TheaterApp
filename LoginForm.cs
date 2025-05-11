@@ -14,6 +14,7 @@ namespace TheaterApp
     public partial class LoginForm : Form
     {
         public string Role { get; private set; }
+        public int UserId { get; private set; }
         public LoginForm()
         {
             InitializeComponent();
@@ -59,19 +60,21 @@ namespace TheaterApp
                 }
 
                 // 2. Проверка среди клиентов (отдельно, после закрытия reader)
-                using (var clientCmd = new NpgsqlCommand("SELECT \"PasswordHash\", \"Salt\" FROM \"Clients\" WHERE \"Username\" = @username", conn))
+                using (var clientCmd = new NpgsqlCommand("SELECT \"idClients\", \"PasswordHash\", \"Salt\" FROM \"Clients\" WHERE \"Username\" = @username", conn))
                 {
                     clientCmd.Parameters.AddWithValue("username", username);
                     using (var reader = clientCmd.ExecuteReader())
                     {
                         if (reader.Read())
                         {
-                            string hash = reader.GetString(0);
-                            string salt = reader.GetString(1);
+                            int clientId = reader.GetInt32(0);
+                            string hash = reader.GetString(1);
+                            string salt = reader.GetString(2);
                             string computedHash = ComputeHash(password, salt);
                             if (computedHash == hash)
                             {
                                 this.Role = "client";
+                                this.UserId = clientId;
                                 this.DialogResult = DialogResult.OK;
                                 return;
                             }

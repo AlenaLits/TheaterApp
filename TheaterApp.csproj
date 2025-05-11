@@ -140,6 +140,12 @@
     <Compile Include="AdminRegistrationForm.Designer.cs">
       <DependentUpon>AdminRegistrationForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="BuyTicketForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BuyTicketForm.Designer.cs">
+      <DependentUpon>BuyTicketForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ClientForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -152,11 +158,23 @@
     <Compile Include="ClientRegistrationForm.Designer.cs">
       <DependentUpon>ClientRegistrationForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ClientsTheaterForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ClientsTheaterForm.Designer.cs">
+      <DependentUpon>ClientsTheaterForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="DiscountListForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DiscountListForm.Designer.cs">
       <DependentUpon>DiscountListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EditScheduleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditScheduleForm.Designer.cs">
+      <DependentUpon>EditScheduleForm.cs</DependentUpon>
     </Compile>
     <Compile Include="GenreListForm.cs">
       <SubType>Form</SubType>
@@ -190,11 +208,23 @@
     <Compile Include="RegistrationForm.Designer.cs">
       <DependentUpon>RegistrationForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ScheduleListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ScheduleListForm.Designer.cs">
+      <DependentUpon>ScheduleListForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="TheaterListForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="TheaterListForm.Designer.cs">
       <DependentUpon>TheaterListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TheaterPerformancesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TheaterPerformancesForm.Designer.cs">
+      <DependentUpon>TheaterPerformancesForm.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="AddCategorySeatsForm.resx">
       <DependentUpon>AddCategorySeatsForm.cs</DependentUpon>
@@ -220,11 +250,23 @@
     <EmbeddedResource Include="AdminRegistrationForm.resx">
       <DependentUpon>AdminRegistrationForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="BuyTicketForm.resx">
+      <DependentUpon>BuyTicketForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ClientForm.resx">
+      <DependentUpon>ClientForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ClientRegistrationForm.resx">
       <DependentUpon>ClientRegistrationForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ClientsTheaterForm.resx">
+      <DependentUpon>ClientsTheaterForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DiscountListForm.resx">
       <DependentUpon>DiscountListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditScheduleForm.resx">
+      <DependentUpon>EditScheduleForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GenreListForm.resx">
       <DependentUpon>GenreListForm.cs</DependentUpon>
@@ -250,8 +292,14 @@
     <EmbeddedResource Include="RegistrationForm.resx">
       <DependentUpon>RegistrationForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ScheduleListForm.resx">
+      <DependentUpon>ScheduleListForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TheaterListForm.resx">
       <DependentUpon>TheaterListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TheaterPerformancesForm.resx">
+      <DependentUpon>TheaterPerformancesForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
