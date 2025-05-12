@@ -52,18 +52,18 @@ namespace TheaterApp
 <html>
     <head>
         <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-        <style>
-            path {{
-                fill: blue;
-                stroke: black;
-                stroke-width: 2;
-            }}
-            rect {{
-                fill: blue;
-                stroke: black;
-                stroke-width: 2;
-            }}
-        </style>
+        //<style>
+        //    path {{
+        //        fill: blue;
+        //        stroke: black;
+        //        stroke-width: 2;
+        //    }}
+        //    rect {{
+        //        fill: blue;
+        //        stroke: black;
+        //        stroke-width: 2;
+        //    }}
+        //</style>
         <script>
             function elementClick(id) {{
                 alert('Вы кликнули по месту с ID: ' + id);
@@ -95,18 +95,18 @@ namespace TheaterApp
 <html>
     <head>
         <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-        <style>
-            path {{
-                fill: blue;
-                stroke: black;
-                stroke-width: 2;
-            }}
-            rect {{
-                fill: blue;
-                stroke: black;
-                stroke-width: 2;
-            }}
-        </style>
+        //<style>
+        //    path {{
+        //        fill: blue;
+        //        stroke: black;
+        //        stroke-width: 2;
+        //    }}
+        //    rect {{
+        //        fill: blue;
+        //        stroke: black;
+        //        stroke-width: 2;
+        //    }}
+        //</style>
         <script>
             function elementClick(id) {{
                 alert('Вы кликнули по месту с ID: ' + id);
