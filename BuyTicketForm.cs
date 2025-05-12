@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 
 namespace TheaterApp
 {
@@ -14,6 +15,8 @@ namespace TheaterApp
         private readonly string performanceName;
         private byte[] svgData;
         private int selectedSeatId = -1; // Для хранения выбранного места
+        private Dictionary<string, bool> elementClickHandlers = new Dictionary<string, bool>();
+        private readonly HashSet<string> selectedElements = new HashSet<string>();
 
         public BuyTicketForm(int clientId, int scheduleId, string performanceName)
         {
@@ -47,41 +50,64 @@ namespace TheaterApp
                     {
                         svgData = (byte[])reader["SchemeHalls"];
                         string svgContent = Encoding.UTF8.GetString(svgData);
+                        var occupiedSeats = GetOccupiedSeatIds();
+
+                        foreach (var seatId in occupiedSeats)
+                        {
+                            // Пример: меняем fill у места с id=seatId на серый
+                            svgContent = svgContent.Replace($"id=\"{seatId}\"", $"id=\"{seatId}\" style=\"fill:gray;pointer-events:none;\"");
+                        }
                         string htmlContent = $@"
 <html>
     <head>
         <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-        <style>
-            path {{
-                fill: blue;
-                stroke: black;
-                stroke-width: 2;
-                cursor: pointer;
-            }}
-            rect {{
-                fill: blue;
-                stroke: black;
-                stroke-width: 2;
-                cursor: pointer;
-            }}
-        </style>
-        <script>
-    function elementClick(id) {{
-        // Вызов метода из C#
-        window.external.ElementClick(id);
-    }}
-</script>
+        //<style>
+        //    path {{
+        //        fill: blue;
+        //        stroke: black;
+        //        stroke-width: 2;
+        //    }}
+        //    rect {{
+        //        fill: blue;
+        //        stroke: black;
+        //        stroke-width: 2;
+        //    }}
+        //</style>
+        
     </head>
     <body>
         {svgContent}
     </body>
 </html>";
+
+
+
                         webBrowser1.DocumentText = htmlContent;
                     }
                 }
             }
         }
+        private HashSet<int> GetOccupiedSeatIds()
+        {
+            var occupiedSeats = new HashSet<int>();
 
+            using (var conn = new NpgsqlConnection("Host=localhost;Username=postgres;Password=0813;Database=\"Theatres\""))
+            {
+                conn.Open();
+                var cmd = new NpgsqlCommand(@"SELECT ""Seats"" FROM public.""Tickets"" WHERE ""Schedule"" = @scheduleId", conn);
+                cmd.Parameters.AddWithValue("scheduleId", scheduleId);
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        occupiedSeats.Add(reader.GetInt32(0));
+                    }
+                }
+            }
+
+            return occupiedSeats;
+        }
         private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
             var document = webBrowser1.Document;
@@ -90,12 +116,25 @@ namespace TheaterApp
 
             foreach (string tag in clickableTags)
             {
-                foreach (HtmlElement element in webBrowser1.Document.GetElementsByTagName(tag))
+                foreach (HtmlElement element in document.GetElementsByTagName(tag))
                 {
-                    element.AttachEventHandler("onclick", delegate
+                    string id = element.GetAttribute("id");
+
+                    if (string.IsNullOrEmpty(id))
                     {
-                        Element_Click(element); // Передаем сам HtmlElement в метод
-                    });
+                        Console.WriteLine("Элемент не имеет ID, пропускаем.");
+                        continue;  // Пропускаем элементы без ID
+                    }
+
+                    if (!elementClickHandlers.ContainsKey(id))
+                    {
+                        element.AttachEventHandler("onclick", delegate
+                        {
+                            Element_Click(element);
+                        });
+
+                        elementClickHandlers[id] = true;
+                    }
                 }
             }
         }
@@ -129,16 +168,29 @@ namespace TheaterApp
 
         private void Element_Click(HtmlElement element)
         {
-            //string id = element.GetAttribute("id");
-            //MessageBox.Show("Вы кликнули по месту с ID: " + id);
+            string id = element.GetAttribute("id");
 
-            string seatId = element.GetAttribute("id");
-            if (!string.IsNullOrEmpty(seatId))
+            if (string.IsNullOrEmpty(id))
             {
-                selectedSeatId = int.Parse(seatId);
+                MessageBox.Show("У элемента нет ID!");
+                return;
+            }
+
+            MessageBox.Show($"Вы кликнули по элементу с ID: {id}");
+            // Извлекаем числовую часть из ID (например, "86" из "seat86")
+            var match = System.Text.RegularExpressions.Regex.Match(id, @"\d+");
+
+            if (match.Success)
+            {
+                // Извлекаем число и преобразуем в int
+                selectedSeatId = int.Parse(match.Value);
                 MessageBox.Show($"Вы выбрали место с ID: {selectedSeatId}");
-                lblSelectedSeat.Text = $"Выбранное место: {seatId}";
+                lblSelectedSeat.Text = $"Выбранное место: {selectedSeatId}";
                 LoadSeatPrice(selectedSeatId);
+            }
+            else
+            {
+                MessageBox.Show("Не удалось извлечь ID места.");
             }
         }
 
@@ -148,13 +200,48 @@ namespace TheaterApp
             {
                 conn.Open();
 
-                string query = "SELECT \"Price\" FROM public.\"Seats\" WHERE \"idSeat\" = @seatId";
-                using (var cmd = new NpgsqlCommand(query, conn))
+                // Получаем информацию о категории места
+                string categoryQuery = "SELECT \"Category\" FROM public.\"Seats\" WHERE \"idSeats\" = @seatId";
+                int categoryId = 0;
+                using (var cmd = new NpgsqlCommand(categoryQuery, conn))
                 {
                     cmd.Parameters.AddWithValue("seatId", seatId);
+                    var result = cmd.ExecuteScalar();
+                    if (result != null)
+                    {
+                        categoryId = Convert.ToInt32(result);
+                    }
+                }
+
+                // Получаем информацию о расписании
+                string scheduleQuery = "SELECT \"idSchedule\" FROM public.\"PerformanceSchedule\" WHERE \"Hall\" IN (SELECT \"Halls\" FROM public.\"Seats\" WHERE \"idSeats\" = @seatId)";
+                int scheduleId = 0;
+                using (var cmd = new NpgsqlCommand(scheduleQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("seatId", seatId);
+                    var result = cmd.ExecuteScalar();
+                    if (result != null)
+                    {
+                        scheduleId = Convert.ToInt32(result);
+                    }
+                }
+
+                // Получаем цену для места на основе категории и расписания
+                string priceQuery = "SELECT \"Price\" FROM public.\"SeatPrices\" WHERE \"ScheduleId\" = @scheduleId AND \"CategoryId\" = @categoryId";
+                using (var cmd = new NpgsqlCommand(priceQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("scheduleId", scheduleId);
+                    cmd.Parameters.AddWithValue("categoryId", categoryId);
                     var price = cmd.ExecuteScalar();
-                    lblPrice.Text = $"Цена: {price}";
-                    lblFinalPrice.Text = price.ToString(); // Итоговая цена без скидки
+                    if (price != null)
+                    {
+                        lblPrice.Text = $"Цена: {price}";
+                        lblFinalPrice.Text = price.ToString(); // Итоговая цена без скидки
+                    }
+                    else
+                    {
+                        MessageBox.Show("Цена для выбранного места не найдена.");
+                    }
                 }
             }
         }
@@ -196,6 +283,17 @@ namespace TheaterApp
                 conn.Open();
 
                 decimal finalPrice = decimal.Parse(lblFinalPrice.Text);
+                var checkCmd = new NpgsqlCommand(@"SELECT COUNT(*) FROM public.""Tickets"" WHERE ""ScheduleId"" = @scheduleId AND ""SeatId"" = @seatId", conn);
+                checkCmd.Parameters.AddWithValue("scheduleId", scheduleId);
+                checkCmd.Parameters.AddWithValue("seatId", selectedSeatId);
+
+                int count = Convert.ToInt32(checkCmd.ExecuteScalar());
+
+                if (count > 0)
+                {
+                    MessageBox.Show("Это место уже куплено другим пользователем.");
+                    return;
+                }
                 var cmd = new NpgsqlCommand("INSERT INTO public.\"Tickets\" (\"ClientId\", \"ScheduleId\", \"SeatId\", \"Price\", \"PurchaseDate\") VALUES (@clientId, @scheduleId, @seatId, @price, @purchaseDate)", conn);
                 cmd.Parameters.AddWithValue("clientId", clientId);
                 cmd.Parameters.AddWithValue("scheduleId", scheduleId);

@@ -77,6 +77,7 @@
             this.textBoxDescription.Location = new System.Drawing.Point(321, 124);
             this.textBoxDescription.Multiline = true;
             this.textBoxDescription.Name = "textBoxDescription";
+            this.textBoxDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBoxDescription.Size = new System.Drawing.Size(200, 100);
             this.textBoxDescription.TabIndex = 3;
             // 
@@ -118,7 +119,7 @@
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(136, 391);
+            this.buttonSave.Location = new System.Drawing.Point(219, 387);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(100, 30);
             this.buttonSave.TabIndex = 8;
@@ -128,7 +129,7 @@
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(321, 391);
+            this.buttonCancel.Location = new System.Drawing.Point(404, 387);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(100, 30);
             this.buttonCancel.TabIndex = 9;

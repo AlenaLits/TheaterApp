@@ -36,14 +36,16 @@
             this.numericUpDownSeats = new System.Windows.Forms.NumericUpDown();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
+            this.comboBoxCategories = new System.Windows.Forms.ComboBox();
+            this.buttonAssignCategory = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSeats)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonAdd
             // 
-            this.buttonAdd.Location = new System.Drawing.Point(412, 9);
+            this.buttonAdd.Location = new System.Drawing.Point(371, 9);
             this.buttonAdd.Name = "buttonAdd";
-            this.buttonAdd.Size = new System.Drawing.Size(158, 83);
+            this.buttonAdd.Size = new System.Drawing.Size(134, 66);
             this.buttonAdd.TabIndex = 0;
             this.buttonAdd.Text = "Загрузить SVG-файл схемы";
             this.buttonAdd.UseVisualStyleBackColor = true;
@@ -51,7 +53,7 @@
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(590, 33);
+            this.buttonSave.Location = new System.Drawing.Point(520, 9);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(158, 35);
             this.buttonSave.TabIndex = 2;
@@ -93,7 +95,7 @@
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(775, 33);
+            this.buttonCancel.Location = new System.Drawing.Point(520, 53);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(158, 35);
             this.buttonCancel.TabIndex = 7;
@@ -110,11 +112,31 @@
             this.webBrowser1.TabIndex = 8;
             this.webBrowser1.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser1_DocumentCompleted);
             // 
+            // comboBoxCategories
+            // 
+            this.comboBoxCategories.FormattingEnabled = true;
+            this.comboBoxCategories.Location = new System.Drawing.Point(843, 9);
+            this.comboBoxCategories.Name = "comboBoxCategories";
+            this.comboBoxCategories.Size = new System.Drawing.Size(121, 24);
+            this.comboBoxCategories.TabIndex = 9;
+            // 
+            // buttonAssignCategory
+            // 
+            this.buttonAssignCategory.Location = new System.Drawing.Point(777, 64);
+            this.buttonAssignCategory.Name = "buttonAssignCategory";
+            this.buttonAssignCategory.Size = new System.Drawing.Size(187, 23);
+            this.buttonAssignCategory.TabIndex = 10;
+            this.buttonAssignCategory.Text = "Назначить категорию";
+            this.buttonAssignCategory.UseVisualStyleBackColor = true;
+            this.buttonAssignCategory.Click += new System.EventHandler(this.ButtonAssignCategory_Click);
+            // 
             // AddHallForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1051, 752);
+            this.Controls.Add(this.buttonAssignCategory);
+            this.Controls.Add(this.comboBoxCategories);
             this.Controls.Add(this.webBrowser1);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.numericUpDownSeats);
@@ -141,5 +163,7 @@
         private System.Windows.Forms.NumericUpDown numericUpDownSeats;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.WebBrowser webBrowser1;
+        private System.Windows.Forms.ComboBox comboBoxCategories;
+        private System.Windows.Forms.Button buttonAssignCategory;
     }
 }
