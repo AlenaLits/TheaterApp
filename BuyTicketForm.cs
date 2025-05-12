@@ -175,8 +175,6 @@ namespace TheaterApp
                 MessageBox.Show("У элемента нет ID!");
                 return;
             }
-
-            MessageBox.Show($"Вы кликнули по элементу с ID: {id}");
             // Извлекаем числовую часть из ID (например, "86" из "seat86")
             var match = System.Text.RegularExpressions.Regex.Match(id, @"\d+");
 
@@ -235,8 +233,8 @@ namespace TheaterApp
                     var price = cmd.ExecuteScalar();
                     if (price != null)
                     {
-                        lblPrice.Text = $"Цена: {price}";
-                        lblFinalPrice.Text = price.ToString(); // Итоговая цена без скидки
+                        textBoxBasePrice.Text = price.ToString();
+                        textBoxFinalPrice.Text = price.ToString(); // Итоговая цена без скидки
                     }
                     else
                     {
@@ -250,22 +248,22 @@ namespace TheaterApp
         {
             if (cmbDiscounts.SelectedItem is KeyValuePair<string, Tuple<int, decimal>> selectedDiscount)
             {
-                decimal basePrice = decimal.Parse(lblFinalPrice.Text); // исходная цена
+                decimal basePrice = decimal.Parse(textBoxBasePrice.Text); // исходная цена
                 decimal discountValue = selectedDiscount.Value.Item2; // значение скидки
                 int discountType = selectedDiscount.Value.Item1; // тип скидки (1 - процентная, 2 - фиксированная)
 
                 decimal finalPrice = 0;
 
-                if (discountType == 1) // Процентная скидка
+                if (discountType == 2) // Процентная скидка
                 {
                     finalPrice = basePrice - (basePrice * discountValue / 100);
                 }
-                else if (discountType == 2) // Фиксированная скидка
+                else if (discountType == 1) // Фиксированная скидка
                 {
                     finalPrice = basePrice - discountValue;
                 }
 
-                lblFinalPrice.Text = finalPrice.ToString("F2"); // обновление итоговой цены
+                textBoxFinalPrice.Text = finalPrice.ToString("F2"); // обновление итоговой цены
             }
         }
 
@@ -282,8 +280,8 @@ namespace TheaterApp
             {
                 conn.Open();
 
-                decimal finalPrice = decimal.Parse(lblFinalPrice.Text);
-                var checkCmd = new NpgsqlCommand(@"SELECT COUNT(*) FROM public.""Tickets"" WHERE ""ScheduleId"" = @scheduleId AND ""SeatId"" = @seatId", conn);
+                decimal finalPrice = decimal.Parse(textBoxFinalPrice.Text);
+                var checkCmd = new NpgsqlCommand(@"SELECT COUNT(*) FROM public.""Tickets"" WHERE ""Schedule"" = @scheduleId AND ""Seats"" = @seatId", conn);
                 checkCmd.Parameters.AddWithValue("scheduleId", scheduleId);
                 checkCmd.Parameters.AddWithValue("seatId", selectedSeatId);
 
@@ -294,7 +292,7 @@ namespace TheaterApp
                     MessageBox.Show("Это место уже куплено другим пользователем.");
                     return;
                 }
-                var cmd = new NpgsqlCommand("INSERT INTO public.\"Tickets\" (\"ClientId\", \"ScheduleId\", \"SeatId\", \"Price\", \"PurchaseDate\") VALUES (@clientId, @scheduleId, @seatId, @price, @purchaseDate)", conn);
+                var cmd = new NpgsqlCommand("INSERT INTO public.\"Tickets\" (\"Clients\", \"Schedule\", \"Seats\", \"PriceAfterDiscount\", \"DatePurchase\") VALUES (@clientId, @scheduleId, @seatId, @price, @purchaseDate)", conn);
                 cmd.Parameters.AddWithValue("clientId", clientId);
                 cmd.Parameters.AddWithValue("scheduleId", scheduleId);
                 cmd.Parameters.AddWithValue("seatId", selectedSeatId);
