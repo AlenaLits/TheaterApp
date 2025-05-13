@@ -64,5 +64,17 @@ namespace TheaterApp
         {
             this.Close();
         }
+
+        private void buttonSales_Click(object sender, EventArgs e)
+        {
+            var form = new SalesReportForm();
+            form.ShowDialog();
+        }
+
+        private void buttonStats_Click(object sender, EventArgs e)
+        {
+            var form = new PerformanceStatsForm();
+            form.ShowDialog();
+        }
     }
 }

@@ -33,10 +33,11 @@
             this.buttonGenre = new System.Windows.Forms.Button();
             this.buttonAddSeatCategory = new System.Windows.Forms.Button();
             this.buttonAddDiscount = new System.Windows.Forms.Button();
-            this.buttonReports = new System.Windows.Forms.Button();
             this.buttonRegistr = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.buttonSchedule = new System.Windows.Forms.Button();
             this.buttonLogout = new System.Windows.Forms.Button();
+            this.buttonSales = new System.Windows.Forms.Button();
+            this.buttonStats = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonAddPerformance
@@ -89,15 +90,6 @@
             this.buttonAddDiscount.UseVisualStyleBackColor = true;
             this.buttonAddDiscount.Click += new System.EventHandler(this.buttonAddDiscount_Click);
             // 
-            // buttonReports
-            // 
-            this.buttonReports.Location = new System.Drawing.Point(12, 198);
-            this.buttonReports.Name = "buttonReports";
-            this.buttonReports.Size = new System.Drawing.Size(160, 50);
-            this.buttonReports.TabIndex = 5;
-            this.buttonReports.Text = "Отчеты";
-            this.buttonReports.UseVisualStyleBackColor = true;
-            // 
             // buttonRegistr
             // 
             this.buttonRegistr.Location = new System.Drawing.Point(315, 198);
@@ -108,15 +100,15 @@
             this.buttonRegistr.UseVisualStyleBackColor = true;
             this.buttonRegistr.Click += new System.EventHandler(this.buttonRegistr_Click);
             // 
-            // button1
+            // buttonSchedule
             // 
-            this.button1.Location = new System.Drawing.Point(628, 12);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(160, 50);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "Расписание спектаклей";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.buttonSchedule.Location = new System.Drawing.Point(628, 12);
+            this.buttonSchedule.Name = "buttonSchedule";
+            this.buttonSchedule.Size = new System.Drawing.Size(160, 50);
+            this.buttonSchedule.TabIndex = 7;
+            this.buttonSchedule.Text = "Расписание спектаклей";
+            this.buttonSchedule.UseVisualStyleBackColor = true;
+            this.buttonSchedule.Click += new System.EventHandler(this.button1_Click);
             // 
             // buttonLogout
             // 
@@ -128,15 +120,36 @@
             this.buttonLogout.UseVisualStyleBackColor = true;
             this.buttonLogout.Click += new System.EventHandler(this.buttonLogout_Click);
             // 
+            // buttonSales
+            // 
+            this.buttonSales.Location = new System.Drawing.Point(12, 198);
+            this.buttonSales.Name = "buttonSales";
+            this.buttonSales.Size = new System.Drawing.Size(159, 50);
+            this.buttonSales.TabIndex = 9;
+            this.buttonSales.Text = "Отчет по продажам";
+            this.buttonSales.UseVisualStyleBackColor = true;
+            this.buttonSales.Click += new System.EventHandler(this.buttonSales_Click);
+            // 
+            // buttonStats
+            // 
+            this.buttonStats.Location = new System.Drawing.Point(12, 283);
+            this.buttonStats.Name = "buttonStats";
+            this.buttonStats.Size = new System.Drawing.Size(159, 50);
+            this.buttonStats.TabIndex = 10;
+            this.buttonStats.Text = "Статистика по спектаклям";
+            this.buttonStats.UseVisualStyleBackColor = true;
+            this.buttonStats.Click += new System.EventHandler(this.buttonStats_Click);
+            // 
             // AdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.buttonStats);
+            this.Controls.Add(this.buttonSales);
             this.Controls.Add(this.buttonLogout);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.buttonSchedule);
             this.Controls.Add(this.buttonRegistr);
-            this.Controls.Add(this.buttonReports);
             this.Controls.Add(this.buttonAddDiscount);
             this.Controls.Add(this.buttonAddSeatCategory);
             this.Controls.Add(this.buttonGenre);
@@ -155,9 +168,10 @@
         private System.Windows.Forms.Button buttonGenre;
         private System.Windows.Forms.Button buttonAddSeatCategory;
         private System.Windows.Forms.Button buttonAddDiscount;
-        private System.Windows.Forms.Button buttonReports;
         private System.Windows.Forms.Button buttonRegistr;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonSchedule;
         private System.Windows.Forms.Button buttonLogout;
+        private System.Windows.Forms.Button buttonSales;
+        private System.Windows.Forms.Button buttonStats;
     }
 }
