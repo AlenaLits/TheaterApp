@@ -89,9 +89,24 @@
             // numericUpDownSeats
             // 
             this.numericUpDownSeats.Location = new System.Drawing.Point(142, 53);
+            this.numericUpDownSeats.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numericUpDownSeats.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.numericUpDownSeats.Name = "numericUpDownSeats";
             this.numericUpDownSeats.Size = new System.Drawing.Size(200, 22);
             this.numericUpDownSeats.TabIndex = 6;
+            this.numericUpDownSeats.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // buttonCancel
             // 
@@ -115,9 +130,9 @@
             // comboBoxCategories
             // 
             this.comboBoxCategories.FormattingEnabled = true;
-            this.comboBoxCategories.Location = new System.Drawing.Point(843, 9);
+            this.comboBoxCategories.Location = new System.Drawing.Point(777, 9);
             this.comboBoxCategories.Name = "comboBoxCategories";
-            this.comboBoxCategories.Size = new System.Drawing.Size(121, 24);
+            this.comboBoxCategories.Size = new System.Drawing.Size(187, 24);
             this.comboBoxCategories.TabIndex = 9;
             // 
             // buttonAssignCategory

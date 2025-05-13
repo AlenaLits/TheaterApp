@@ -58,7 +58,13 @@ namespace TheaterApp
                 DataPropertyName = "DateTime",
                 Width = 150
             });
-
+            dataGridViewPerformances.Columns.Add(new DataGridViewButtonColumn
+            {
+                HeaderText = "Подробнее",
+                Text = "Описание",
+                UseColumnTextForButtonValue = true,
+                Width = 120
+            });
             dataGridViewPerformances.Columns.Add(new DataGridViewButtonColumn
             {
                 HeaderText = "Действие",
@@ -98,7 +104,7 @@ namespace TheaterApp
 
         private void dataGridViewPerformances_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == 3 && e.RowIndex >= 0)
+            if (e.ColumnIndex == 4 && e.RowIndex >= 0)
             {
                 int scheduleId = (int)dataGridViewPerformances.Rows[e.RowIndex].Cells["idSchedule"].Value;
                 string performanceName = dataGridViewPerformances.Rows[e.RowIndex].Cells["PerformanceName"].Value.ToString();
@@ -107,6 +113,15 @@ namespace TheaterApp
                 var form = new BuyTicketForm(clientId, scheduleId, performanceName);
                 form.ShowDialog();
             }
+            if (e.ColumnIndex == 3 && e.RowIndex >= 0)
+            {
+                // Предположим, в DataGridView есть колонка с ID спектакля
+                int scheduleId = Convert.ToInt32(dataGridViewPerformances.Rows[e.RowIndex].Cells["idSchedule"].Value);
+
+                var detailsForm = new PerformanceDetailsForm(scheduleId);
+                detailsForm.ShowDialog();
+            }
+
         }
     }
 }

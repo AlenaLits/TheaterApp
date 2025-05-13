@@ -36,11 +36,12 @@
             this.buttonReports = new System.Windows.Forms.Button();
             this.buttonRegistr = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.buttonLogout = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonAddPerformance
             // 
-            this.buttonAddPerformance.Location = new System.Drawing.Point(114, 64);
+            this.buttonAddPerformance.Location = new System.Drawing.Point(12, 12);
             this.buttonAddPerformance.Name = "buttonAddPerformance";
             this.buttonAddPerformance.Size = new System.Drawing.Size(160, 50);
             this.buttonAddPerformance.TabIndex = 0;
@@ -50,7 +51,7 @@
             // 
             // buttonAddTheater
             // 
-            this.buttonAddTheater.Location = new System.Drawing.Point(114, 163);
+            this.buttonAddTheater.Location = new System.Drawing.Point(315, 12);
             this.buttonAddTheater.Name = "buttonAddTheater";
             this.buttonAddTheater.Size = new System.Drawing.Size(160, 50);
             this.buttonAddTheater.TabIndex = 1;
@@ -60,7 +61,7 @@
             // 
             // buttonGenre
             // 
-            this.buttonGenre.Location = new System.Drawing.Point(114, 260);
+            this.buttonGenre.Location = new System.Drawing.Point(12, 100);
             this.buttonGenre.Name = "buttonGenre";
             this.buttonGenre.Size = new System.Drawing.Size(160, 50);
             this.buttonGenre.TabIndex = 2;
@@ -70,7 +71,7 @@
             // 
             // buttonAddSeatCategory
             // 
-            this.buttonAddSeatCategory.Location = new System.Drawing.Point(496, 163);
+            this.buttonAddSeatCategory.Location = new System.Drawing.Point(628, 100);
             this.buttonAddSeatCategory.Name = "buttonAddSeatCategory";
             this.buttonAddSeatCategory.Size = new System.Drawing.Size(160, 50);
             this.buttonAddSeatCategory.TabIndex = 3;
@@ -80,7 +81,7 @@
             // 
             // buttonAddDiscount
             // 
-            this.buttonAddDiscount.Location = new System.Drawing.Point(114, 355);
+            this.buttonAddDiscount.Location = new System.Drawing.Point(315, 100);
             this.buttonAddDiscount.Name = "buttonAddDiscount";
             this.buttonAddDiscount.Size = new System.Drawing.Size(160, 50);
             this.buttonAddDiscount.TabIndex = 4;
@@ -90,7 +91,7 @@
             // 
             // buttonReports
             // 
-            this.buttonReports.Location = new System.Drawing.Point(496, 260);
+            this.buttonReports.Location = new System.Drawing.Point(12, 198);
             this.buttonReports.Name = "buttonReports";
             this.buttonReports.Size = new System.Drawing.Size(160, 50);
             this.buttonReports.TabIndex = 5;
@@ -99,7 +100,7 @@
             // 
             // buttonRegistr
             // 
-            this.buttonRegistr.Location = new System.Drawing.Point(496, 343);
+            this.buttonRegistr.Location = new System.Drawing.Point(315, 198);
             this.buttonRegistr.Name = "buttonRegistr";
             this.buttonRegistr.Size = new System.Drawing.Size(160, 50);
             this.buttonRegistr.TabIndex = 6;
@@ -109,7 +110,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(496, 64);
+            this.button1.Location = new System.Drawing.Point(628, 12);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(160, 50);
             this.button1.TabIndex = 7;
@@ -117,11 +118,22 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // buttonLogout
+            // 
+            this.buttonLogout.Location = new System.Drawing.Point(628, 198);
+            this.buttonLogout.Name = "buttonLogout";
+            this.buttonLogout.Size = new System.Drawing.Size(160, 50);
+            this.buttonLogout.TabIndex = 8;
+            this.buttonLogout.Text = "Выйти";
+            this.buttonLogout.UseVisualStyleBackColor = true;
+            this.buttonLogout.Click += new System.EventHandler(this.buttonLogout_Click);
+            // 
             // AdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.buttonLogout);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.buttonRegistr);
             this.Controls.Add(this.buttonReports);
@@ -146,5 +158,6 @@
         private System.Windows.Forms.Button buttonReports;
         private System.Windows.Forms.Button buttonRegistr;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonLogout;
     }
 }

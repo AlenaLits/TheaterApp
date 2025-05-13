@@ -59,5 +59,10 @@ namespace TheaterApp
             form.ShowDialog();
 
         }
+
+        private void buttonLogout_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

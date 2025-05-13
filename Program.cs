@@ -17,15 +17,28 @@ namespace TheaterApp
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            using (var loginForm = new LoginForm())
+            while (true)
             {
-                var result = loginForm.ShowDialog();
-                if (result == DialogResult.OK)
+                using (var loginForm = new LoginForm())
                 {
-                    if (loginForm.Role == "admin")
-                        Application.Run(new AdminForm());
-                    else if (loginForm.Role == "client")
-                        Application.Run(new ClientForm(loginForm.UserId));
+                    var result = loginForm.ShowDialog();
+                    if (result == DialogResult.OK)
+                    {
+                        if (loginForm.Role == "admin")
+                        {
+                            var adminForm = new AdminForm();
+                            adminForm.ShowDialog(); // ждём закрытия
+                        }
+                        else if (loginForm.Role == "client")
+                        {
+                            var clientForm = new ClientForm(loginForm.UserId);
+                            clientForm.ShowDialog();
+                        }
+                    }
+                    else
+                    {
+                        break; // пользователь закрыл окно входа — завершаем приложение
+                    }
                 }
             }
         }

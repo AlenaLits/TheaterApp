@@ -301,6 +301,7 @@ namespace TheaterApp
 
                 cmd.ExecuteNonQuery();
                 MessageBox.Show("Билет успешно куплен!");
+                this.Close();
             }
         }
 

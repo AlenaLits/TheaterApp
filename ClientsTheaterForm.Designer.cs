@@ -43,7 +43,7 @@
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 83.55556F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.44444F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(800, 450);
@@ -58,7 +58,7 @@
             this.dataGridViewTheaters.Name = "dataGridViewTheaters";
             this.dataGridViewTheaters.RowHeadersWidth = 51;
             this.dataGridViewTheaters.RowTemplate.Height = 24;
-            this.dataGridViewTheaters.Size = new System.Drawing.Size(794, 370);
+            this.dataGridViewTheaters.Size = new System.Drawing.Size(794, 444);
             this.dataGridViewTheaters.TabIndex = 0;
             // 
             // ClientsTheaterForm

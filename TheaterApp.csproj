@@ -158,6 +158,12 @@
     <Compile Include="ClientRegistrationForm.Designer.cs">
       <DependentUpon>ClientRegistrationForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ClientsPerformanceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ClientsPerformanceForm.Designer.cs">
+      <DependentUpon>ClientsPerformanceForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ClientsTheaterForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -194,11 +200,23 @@
     <Compile Include="LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="PerformanceDetailsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PerformanceDetailsForm.Designer.cs">
+      <DependentUpon>PerformanceDetailsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="PerformanceListForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="PerformanceListForm.Designer.cs">
       <DependentUpon>PerformanceListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PerformancesTheaterForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PerformancesTheaterForm.Designer.cs">
+      <DependentUpon>PerformancesTheaterForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -259,6 +277,9 @@
     <EmbeddedResource Include="ClientRegistrationForm.resx">
       <DependentUpon>ClientRegistrationForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ClientsPerformanceForm.resx">
+      <DependentUpon>ClientsPerformanceForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ClientsTheaterForm.resx">
       <DependentUpon>ClientsTheaterForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -277,8 +298,14 @@
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PerformanceDetailsForm.resx">
+      <DependentUpon>PerformanceDetailsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PerformanceListForm.resx">
       <DependentUpon>PerformanceListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PerformancesTheaterForm.resx">
+      <DependentUpon>PerformancesTheaterForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

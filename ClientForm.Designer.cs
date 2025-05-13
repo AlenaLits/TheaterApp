@@ -31,6 +31,7 @@
             this.btnTheaters = new System.Windows.Forms.Button();
             this.btnPerformances = new System.Windows.Forms.Button();
             this.btnMyTickets = new System.Windows.Forms.Button();
+            this.buttonLogout = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnTheaters
@@ -63,11 +64,22 @@
             this.btnMyTickets.UseVisualStyleBackColor = true;
             this.btnMyTickets.Click += new System.EventHandler(this.btnMyTickets_Click);
             // 
+            // buttonLogout
+            // 
+            this.buttonLogout.Location = new System.Drawing.Point(30, 212);
+            this.buttonLogout.Name = "buttonLogout";
+            this.buttonLogout.Size = new System.Drawing.Size(200, 40);
+            this.buttonLogout.TabIndex = 3;
+            this.buttonLogout.Text = "Выйти";
+            this.buttonLogout.UseVisualStyleBackColor = true;
+            this.buttonLogout.Click += new System.EventHandler(this.buttonLogout_Click);
+            // 
             // ClientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.buttonLogout);
             this.Controls.Add(this.btnMyTickets);
             this.Controls.Add(this.btnPerformances);
             this.Controls.Add(this.btnTheaters);
@@ -82,5 +94,6 @@
         private System.Windows.Forms.Button btnTheaters;
         private System.Windows.Forms.Button btnPerformances;
         private System.Windows.Forms.Button btnMyTickets;
+        private System.Windows.Forms.Button buttonLogout;
     }
 }

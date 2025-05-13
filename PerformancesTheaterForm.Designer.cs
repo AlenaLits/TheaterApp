@@ -1,6 +1,6 @@
 ﻿namespace TheaterApp
 {
-    partial class TheaterPerformancesForm
+    partial class PerformancesTheaterForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.dataGridViewPerformances = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTheaters = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPerformances)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTheaters)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -39,38 +39,37 @@
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.dataGridViewPerformances, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.dataGridViewTheaters, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 86F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(800, 450);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
-            // dataGridViewPerformances
+            // dataGridViewTheaters
             // 
-            this.dataGridViewPerformances.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridViewPerformances.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewPerformances.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewPerformances.Location = new System.Drawing.Point(3, 3);
-            this.dataGridViewPerformances.Name = "dataGridViewPerformances";
-            this.dataGridViewPerformances.RowHeadersWidth = 51;
-            this.dataGridViewPerformances.RowTemplate.Height = 24;
-            this.dataGridViewPerformances.Size = new System.Drawing.Size(794, 444);
-            this.dataGridViewPerformances.TabIndex = 0;
+            this.dataGridViewTheaters.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewTheaters.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewTheaters.Location = new System.Drawing.Point(3, 3);
+            this.dataGridViewTheaters.Name = "dataGridViewTheaters";
+            this.dataGridViewTheaters.RowHeadersWidth = 51;
+            this.dataGridViewTheaters.RowTemplate.Height = 24;
+            this.dataGridViewTheaters.Size = new System.Drawing.Size(794, 444);
+            this.dataGridViewTheaters.TabIndex = 0;
             // 
-            // TheaterPerformancesForm
+            // PerformancesTheaterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Name = "TheaterPerformancesForm";
-            this.Text = "TheaterPerformancesForm";
+            this.Name = "PerformancesTheaterForm";
+            this.Text = "PerformancesTheaterForm";
             this.tableLayoutPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPerformances)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTheaters)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -78,6 +77,6 @@
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.DataGridView dataGridViewPerformances;
+        private System.Windows.Forms.DataGridView dataGridViewTheaters;
     }
 }
