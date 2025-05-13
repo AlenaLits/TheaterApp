@@ -38,8 +38,8 @@ namespace TheaterApp
 
         private void btnMyTickets_Click(object sender, EventArgs e)
         {
-            //var form = new MyTicketsForm(clientId);
-            //form.ShowDialog();
+            var form = new MyTicketsForm(clientId);
+            form.ShowDialog();
         }
 
         private void buttonLogout_Click(object sender, EventArgs e)
