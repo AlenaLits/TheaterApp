@@ -164,7 +164,7 @@
             this.Controls.Add(this.textBoxName);
             this.Controls.Add(this.labelName);
             this.Name = "AddDiscountForm";
-            this.Text = "AddDiscountForm";
+            this.Text = "Редактирование скидок";
             this.Load += new System.EventHandler(this.AddDiscountForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

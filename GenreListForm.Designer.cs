@@ -64,9 +64,10 @@
             // 
             // buttonAdd
             // 
+            this.buttonAdd.Dock = System.Windows.Forms.DockStyle.Left;
             this.buttonAdd.Location = new System.Drawing.Point(3, 399);
             this.buttonAdd.Name = "buttonAdd";
-            this.buttonAdd.Size = new System.Drawing.Size(133, 39);
+            this.buttonAdd.Size = new System.Drawing.Size(133, 48);
             this.buttonAdd.TabIndex = 1;
             this.buttonAdd.Text = "Добавить жанр";
             this.buttonAdd.UseVisualStyleBackColor = true;
@@ -79,7 +80,7 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "GenreListForm";
-            this.Text = "GenreListForm";
+            this.Text = "Список жанров";
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewGenre)).EndInit();
             this.ResumeLayout(false);

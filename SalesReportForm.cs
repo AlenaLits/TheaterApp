@@ -101,7 +101,6 @@ namespace TheaterApp
                 JOIN ""Performances"" p ON s.""Performance"" = p.""idPerformances""
                 JOIN ""Halls"" h ON s.""Hall"" = h.""idHalls""
                 JOIN ""Theaters"" t ON h.""Theaters"" = t.""idTheaters""
-                WHERE b.""Status"" = 1
                   AND (@theaterId IS NULL OR t.""idTheaters"" = @theaterId)
                   AND s.""DateTime"" BETWEEN @from AND @to
                 GROUP BY t.""NameTheaters"", p.""NamePerformances""

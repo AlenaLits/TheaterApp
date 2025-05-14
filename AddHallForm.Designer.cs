@@ -162,7 +162,7 @@
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.buttonAdd);
             this.Name = "AddHallForm";
-            this.Text = "AddHallForm";
+            this.Text = "Редактирование залов театра";
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSeats)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -341,7 +341,7 @@ namespace TheaterApp
                     return;
                 }
 
-                var cmd = new NpgsqlCommand("INSERT INTO public.\"Tickets\" (\"Clients\", \"Schedule\", \"Seats\", \"PriceAfterDiscount\", \"DatePurchase\", \"Status\") VALUES (@clientId, @scheduleId, @seatId, @price, @purchaseDate, 1)", conn);
+                var cmd = new NpgsqlCommand("INSERT INTO public.\"Tickets\" (\"Clients\", \"Schedule\", \"Seats\", \"PriceAfterDiscount\", \"DatePurchase\") VALUES (@clientId, @scheduleId, @seatId, @price, @purchaseDate)", conn);
                 cmd.Parameters.AddWithValue("clientId", clientId);
                 cmd.Parameters.AddWithValue("scheduleId", scheduleId);
                 cmd.Parameters.AddWithValue("seatId", selectedSeatId);

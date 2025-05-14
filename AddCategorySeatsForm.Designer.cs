@@ -95,7 +95,7 @@
             // 
             this.panelColorPreview.Location = new System.Drawing.Point(446, 140);
             this.panelColorPreview.Name = "panelColorPreview";
-            this.panelColorPreview.Size = new System.Drawing.Size(200, 100);
+            this.panelColorPreview.Size = new System.Drawing.Size(55, 34);
             this.panelColorPreview.TabIndex = 20;
             // 
             // AddCategorySeatsForm
@@ -111,7 +111,7 @@
             this.Controls.Add(this.textBoxName);
             this.Controls.Add(this.labelName);
             this.Name = "AddCategorySeatsForm";
-            this.Text = "AddCategorySeatsForm";
+            this.Text = "Редактирование категорий мест";
             this.ResumeLayout(false);
             this.PerformLayout();
 

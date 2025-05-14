@@ -36,7 +36,6 @@
             this.labelPhone = new System.Windows.Forms.Label();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonSave = new System.Windows.Forms.Button();
-            this.buttonAddHall = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // labelName
@@ -107,21 +106,11 @@
             this.buttonSave.UseVisualStyleBackColor = true;
             this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
-            // buttonAddHall
-            // 
-            this.buttonAddHall.Location = new System.Drawing.Point(55, 305);
-            this.buttonAddHall.Name = "buttonAddHall";
-            this.buttonAddHall.Size = new System.Drawing.Size(145, 36);
-            this.buttonAddHall.TabIndex = 12;
-            this.buttonAddHall.Text = "Добавить зал";
-            this.buttonAddHall.UseVisualStyleBackColor = true;
-            // 
             // AddTheatreForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.buttonAddHall);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.textBoxPhone);
@@ -131,7 +120,7 @@
             this.Controls.Add(this.textBoxName);
             this.Controls.Add(this.labelName);
             this.Name = "AddTheatreForm";
-            this.Text = "AddTheatreForm";
+            this.Text = "Редактирование театра";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -147,6 +136,5 @@
         private System.Windows.Forms.Label labelPhone;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Button buttonSave;
-        private System.Windows.Forms.Button buttonAddHall;
     }
 }

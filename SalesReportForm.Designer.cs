@@ -46,7 +46,7 @@
             this.comboBoxTheaters.FormattingEnabled = true;
             this.comboBoxTheaters.Location = new System.Drawing.Point(282, 17);
             this.comboBoxTheaters.Name = "comboBoxTheaters";
-            this.comboBoxTheaters.Size = new System.Drawing.Size(153, 24);
+            this.comboBoxTheaters.Size = new System.Drawing.Size(200, 24);
             this.comboBoxTheaters.TabIndex = 0;
             // 
             // dateTimePickerFrom
@@ -146,7 +146,7 @@
             this.Controls.Add(this.btnGenerateReport);
             this.Controls.Add(this.dateTimePickerTo);
             this.Name = "SalesReportForm";
-            this.Text = "SalesReportForm";
+            this.Text = "Продажи";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSales)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

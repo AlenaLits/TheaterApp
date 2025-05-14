@@ -1,4 +1,5 @@
 ﻿using ClosedXML.Excel;
+using DocumentFormat.OpenXml.Bibliography;
 using Npgsql;
 using System;
 using System.Collections.Generic;
@@ -86,7 +87,7 @@ namespace TheaterApp
         {
             DateTime from = dateTimePickerFrom.Value.Date;
             DateTime to = dateTimePickerTo.Value.Date.AddDays(1).AddTicks(-1);
-            object selectedTheaterId = comboBoxTheaters.SelectedValue ?? DBNull.Value;
+            int? theaterId = comboBoxTheaters.SelectedValue is DBNull ? null : (int?)comboBoxTheaters.SelectedValue;
 
             using (var conn = new NpgsqlConnection("Host=localhost;Username=postgres;Password=0813;Database=\"Theatres\""))
             {
@@ -105,7 +106,6 @@ namespace TheaterApp
                 FROM ""Tickets"" t
                 JOIN ""PerformanceSchedule"" s ON t.""Schedule"" = s.""idSchedule""
                 JOIN ""Halls"" h ON s.""Hall"" = h.""idHalls""
-                WHERE t.""Status"" = 1
                   AND s.""DateTime"" BETWEEN @from AND @to
                   AND (@theaterId IS NULL OR h.""Theaters"" = @theaterId)
                 GROUP BY s.""idSchedule""
@@ -136,7 +136,8 @@ namespace TheaterApp
                 {
                     cmd.Parameters.AddWithValue("from", from);
                     cmd.Parameters.AddWithValue("to", to);
-                    cmd.Parameters.AddWithValue("theaterId", selectedTheaterId ?? DBNull.Value);
+                    cmd.Parameters.Add("theaterId", NpgsqlTypes.NpgsqlDbType.Integer).Value =
+    theaterId.HasValue ? (object)theaterId.Value : DBNull.Value;
 
                     using (var adapter = new NpgsqlDataAdapter(cmd))
                     {

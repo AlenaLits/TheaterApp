@@ -68,7 +68,7 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "ClientsTheaterForm";
-            this.Text = "ClientsTheaterForm";
+            this.Text = "Театры";
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTheaters)).EndInit();
             this.ResumeLayout(false);

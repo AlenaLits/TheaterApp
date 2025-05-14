@@ -344,8 +344,8 @@ namespace TheaterApp
                     while (reader.Read())
                     {
                         int number = reader.GetInt32(0);
-                string color = reader.GetString(1);
-                result[number] = color;
+                        string color = reader.GetString(1);
+                        result[number] = color;
                     }
                 }
             }

@@ -79,7 +79,7 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "CategorySeatsListForm";
-            this.Text = "CategorySeatsListForm";
+            this.Text = "Категории мест";
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCategorySeats)).EndInit();
             this.ResumeLayout(false);

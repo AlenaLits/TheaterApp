@@ -80,7 +80,7 @@
             this.Controls.Add(this.textBoxName);
             this.Controls.Add(this.labelName);
             this.Name = "AddGenreForm";
-            this.Text = "AddGenreForm";
+            this.Text = "Редактирование жанров спектакля";
             this.ResumeLayout(false);
             this.PerformLayout();
 

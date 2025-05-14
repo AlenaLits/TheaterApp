@@ -92,7 +92,7 @@
             // 
             // buttonRegistr
             // 
-            this.buttonRegistr.Location = new System.Drawing.Point(315, 198);
+            this.buttonRegistr.Location = new System.Drawing.Point(628, 198);
             this.buttonRegistr.Name = "buttonRegistr";
             this.buttonRegistr.Size = new System.Drawing.Size(160, 50);
             this.buttonRegistr.TabIndex = 6;
@@ -112,7 +112,7 @@
             // 
             // buttonLogout
             // 
-            this.buttonLogout.Location = new System.Drawing.Point(628, 198);
+            this.buttonLogout.Location = new System.Drawing.Point(315, 373);
             this.buttonLogout.Name = "buttonLogout";
             this.buttonLogout.Size = new System.Drawing.Size(160, 50);
             this.buttonLogout.TabIndex = 8;
@@ -132,7 +132,7 @@
             // 
             // buttonStats
             // 
-            this.buttonStats.Location = new System.Drawing.Point(12, 283);
+            this.buttonStats.Location = new System.Drawing.Point(316, 198);
             this.buttonStats.Name = "buttonStats";
             this.buttonStats.Size = new System.Drawing.Size(159, 50);
             this.buttonStats.TabIndex = 10;
@@ -156,7 +156,7 @@
             this.Controls.Add(this.buttonAddTheater);
             this.Controls.Add(this.buttonAddPerformance);
             this.Name = "AdminForm";
-            this.Text = "AdminForm";
+            this.Text = "Форма для администратора";
             this.ResumeLayout(false);
 
         }

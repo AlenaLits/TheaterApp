@@ -32,7 +32,8 @@ namespace TheaterApp
             {
                 Name = "idSchedule",
                 HeaderText = "ID",
-                DataPropertyName = "idSchedule"
+                DataPropertyName = "idSchedule",
+                Visible = false
             });
 
             dataGridViewSchedule.Columns.Add(new DataGridViewTextBoxColumn

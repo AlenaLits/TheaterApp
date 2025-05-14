@@ -110,7 +110,7 @@
             this.Controls.Add(this.textBoxUsername);
             this.Controls.Add(this.label4);
             this.Name = "AdminRegistrationForm";
-            this.Text = "AdminRegistrationForm";
+            this.Text = "Регистрация администратора";
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -138,7 +138,7 @@
             this.Controls.Add(this.comboBoxHall);
             this.Controls.Add(this.comboBoxPerformance);
             this.Name = "EditScheduleForm";
-            this.Text = "EditScheduleForm";
+            this.Text = "Редактирование расписания";
             this.Click += new System.EventHandler(this.EditScheduleForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPrices)).EndInit();
             this.ResumeLayout(false);

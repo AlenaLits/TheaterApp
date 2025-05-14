@@ -65,9 +65,10 @@
             // 
             // buttonAdd
             // 
+            this.buttonAdd.Dock = System.Windows.Forms.DockStyle.Left;
             this.buttonAdd.Location = new System.Drawing.Point(3, 390);
             this.buttonAdd.Name = "buttonAdd";
-            this.buttonAdd.Size = new System.Drawing.Size(132, 48);
+            this.buttonAdd.Size = new System.Drawing.Size(132, 57);
             this.buttonAdd.TabIndex = 1;
             this.buttonAdd.Text = "Добавить спектакль";
             this.buttonAdd.UseVisualStyleBackColor = true;
@@ -80,7 +81,7 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "PerformanceListForm";
-            this.Text = "PerformanceListForm";
+            this.Text = "Список спектаклей";
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPerformances)).EndInit();
             this.ResumeLayout(false);

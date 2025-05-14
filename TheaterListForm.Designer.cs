@@ -43,14 +43,15 @@
             this.dataGridViewTheaters.Name = "dataGridViewTheaters";
             this.dataGridViewTheaters.RowHeadersWidth = 51;
             this.dataGridViewTheaters.RowTemplate.Height = 24;
-            this.dataGridViewTheaters.Size = new System.Drawing.Size(1163, 645);
+            this.dataGridViewTheaters.Size = new System.Drawing.Size(977, 494);
             this.dataGridViewTheaters.TabIndex = 0;
             // 
             // buttonAdd
             // 
-            this.buttonAdd.Location = new System.Drawing.Point(3, 654);
+            this.buttonAdd.Dock = System.Windows.Forms.DockStyle.Left;
+            this.buttonAdd.Location = new System.Drawing.Point(3, 503);
             this.buttonAdd.Name = "buttonAdd";
-            this.buttonAdd.Size = new System.Drawing.Size(154, 30);
+            this.buttonAdd.Size = new System.Drawing.Size(154, 44);
             this.buttonAdd.TabIndex = 1;
             this.buttonAdd.Text = "Добавить театр";
             this.buttonAdd.UseVisualStyleBackColor = true;
@@ -68,17 +69,17 @@
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1169, 701);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(983, 550);
             this.tableLayoutPanel1.TabIndex = 2;
             // 
             // TheaterListForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1169, 701);
+            this.ClientSize = new System.Drawing.Size(983, 550);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "TheaterListForm";
-            this.Text = "TheaterListForm";
+            this.Text = "Список театров";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTheaters)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);

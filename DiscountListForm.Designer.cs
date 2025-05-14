@@ -79,7 +79,7 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "DiscountListForm";
-            this.Text = "DiscountListForm";
+            this.Text = "Список скидок";
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDiscount)).EndInit();
             this.ResumeLayout(false);

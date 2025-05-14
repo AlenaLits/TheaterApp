@@ -36,7 +36,7 @@
             // 
             // btnTheaters
             // 
-            this.btnTheaters.Location = new System.Drawing.Point(30, 30);
+            this.btnTheaters.Location = new System.Drawing.Point(30, 146);
             this.btnTheaters.Name = "btnTheaters";
             this.btnTheaters.Size = new System.Drawing.Size(200, 40);
             this.btnTheaters.TabIndex = 0;
@@ -46,7 +46,7 @@
             // 
             // btnPerformances
             // 
-            this.btnPerformances.Location = new System.Drawing.Point(30, 90);
+            this.btnPerformances.Location = new System.Drawing.Point(263, 146);
             this.btnPerformances.Name = "btnPerformances";
             this.btnPerformances.Size = new System.Drawing.Size(200, 40);
             this.btnPerformances.TabIndex = 1;
@@ -56,7 +56,7 @@
             // 
             // btnMyTickets
             // 
-            this.btnMyTickets.Location = new System.Drawing.Point(30, 150);
+            this.btnMyTickets.Location = new System.Drawing.Point(499, 146);
             this.btnMyTickets.Name = "btnMyTickets";
             this.btnMyTickets.Size = new System.Drawing.Size(200, 40);
             this.btnMyTickets.TabIndex = 2;
@@ -66,7 +66,7 @@
             // 
             // buttonLogout
             // 
-            this.buttonLogout.Location = new System.Drawing.Point(30, 212);
+            this.buttonLogout.Location = new System.Drawing.Point(263, 380);
             this.buttonLogout.Name = "buttonLogout";
             this.buttonLogout.Size = new System.Drawing.Size(200, 40);
             this.buttonLogout.TabIndex = 3;
@@ -84,7 +84,7 @@
             this.Controls.Add(this.btnPerformances);
             this.Controls.Add(this.btnTheaters);
             this.Name = "ClientForm";
-            this.Text = "ClientForm";
+            this.Text = "Форма для покупателя";
             this.ResumeLayout(false);
 
         }
