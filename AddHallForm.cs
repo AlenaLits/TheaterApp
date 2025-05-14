@@ -52,32 +52,41 @@ namespace TheaterApp
                     {
                         svgData = (byte[])reader["SchemeHalls"];
                         string svgContent = Encoding.UTF8.GetString(svgData);
+
+                        // Получаем цвет для каждого места
+                        var seatColors = GetSeatColorsByCategory();
+
+                        // Генерируем JS для окрашивания
+                        StringBuilder coloringScript = new StringBuilder();
+                        coloringScript.AppendLine("<script>");
+                        coloringScript.AppendLine("window.onload = function() {");
+
+                        foreach (var pair in seatColors)
+                        {
+                            // ID в SVG предполагается вида seat23
+                            string elementId = $"\"seat{pair.Key}\"";
+                            coloringScript.AppendLine($@"
+                                var el = document.getElementById({elementId});
+                                if (el) {{
+                                    el.setAttribute('fill', '{pair.Value}');
+                                }}
+                            ");
+                        }
+
+                        coloringScript.AppendLine("};");
+                        coloringScript.AppendLine("</script>");
+
                         string htmlContent = $@"
-<html>
-    <head>
-        <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-        //<style>
-        //    path {{
-        //        fill: blue;
-        //        stroke: black;
-        //        stroke-width: 2;
-        //    }}
-        //    rect {{
-        //        fill: blue;
-        //        stroke: black;
-        //        stroke-width: 2;
-        //    }}
-        //</style>
-        <script>
-            function elementClick(id) {{
-                alert('Вы кликнули по месту с ID: ' + id);
-            }}
-        </script>
-    </head>
-    <body>
-        {svgContent}
-    </body>
-</html>";
+                        <html>
+                            <head>
+                                <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+                                {coloringScript}
+                            </head>
+                            <body>
+                                {svgContent}
+                            </body>
+                        </html>";
+
                         webBrowser1.DocumentText = htmlContent;
                     }
                 }
@@ -282,6 +291,7 @@ namespace TheaterApp
 
                 MessageBox.Show("Категория назначена выбранным местам.");
                 selectedElements.Clear(); // Очистка выделения после назначения категории
+                LoadSvgFromDatabase(hallIdToEdit.Value);
             }
         }
 
@@ -295,7 +305,7 @@ namespace TheaterApp
                 return;
             }
 
-            MessageBox.Show($"Вы кликнули по элементу с ID: {id}");
+            //MessageBox.Show($"Вы кликнули по элементу с ID: {id}");
 
             // Логика изменения стиля и работы с selectedElements
             if (selectedElements.Contains(id))
@@ -310,6 +320,37 @@ namespace TheaterApp
             }
 
             Console.WriteLine($"Текущие выбранные элементы: {string.Join(", ", selectedElements)}");
+        }
+        private Dictionary<int, string> GetSeatColorsByCategory()
+        {
+            var result = new Dictionary<int, string>();
+
+            if (!hallIdToEdit.HasValue)
+                return result;
+
+            using (var conn = new NpgsqlConnection("Host=localhost;Username=postgres;Password=0813;Database=\"Theatres\""))
+            {
+                conn.Open();
+                var cmd = new NpgsqlCommand(@"
+                    SELECT s.""NumberSeats"", c.""Color""
+        
+                            FROM public.""Seats"" s
+                    JOIN public.""CategorySeats"" c ON s.""Category"" = c.""idCategorySeats""
+                    WHERE s.""Halls"" = @hallId", conn);
+                cmd.Parameters.AddWithValue("hallId", hallIdToEdit.Value);
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        int number = reader.GetInt32(0);
+                string color = reader.GetString(1);
+                result[number] = color;
+                    }
+                }
+            }
+
+            return result;
         }
     }
 }

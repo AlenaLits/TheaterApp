@@ -1,4 +1,5 @@
-﻿using Npgsql;
+﻿using DocumentFormat.OpenXml.Office.Word;
+using Npgsql;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,7 +15,7 @@ namespace TheaterApp
         private readonly int scheduleId;
         private readonly string performanceName;
         private byte[] svgData;
-        private int selectedSeatId = -1; // Для хранения выбранного места
+        private int selectedSeat = -1; // Для хранения выбранного места
         private Dictionary<string, bool> elementClickHandlers = new Dictionary<string, bool>();
         private readonly HashSet<string> selectedElements = new HashSet<string>();
 
@@ -55,7 +56,7 @@ namespace TheaterApp
                         foreach (var seatId in occupiedSeats)
                         {
                             // Пример: меняем fill у места с id=seatId на серый
-                            svgContent = svgContent.Replace($"id=\"{seatId}\"", $"id=\"{seatId}\" style=\"fill:gray;pointer-events:none;\"");
+                            svgContent = svgContent.Replace($"id=\"{seatId}\"", $"id=\"{seatId}\" style=\"fill:green;pointer-events:none;\"");
                         }
                         string htmlContent = $@"
 <html>
@@ -181,10 +182,10 @@ namespace TheaterApp
             if (match.Success)
             {
                 // Извлекаем число и преобразуем в int
-                selectedSeatId = int.Parse(match.Value);
-                MessageBox.Show($"Вы выбрали место с ID: {selectedSeatId}");
-                lblSelectedSeat.Text = $"Выбранное место: {selectedSeatId}";
-                LoadSeatPrice(selectedSeatId);
+                selectedSeat = int.Parse(match.Value);
+                MessageBox.Show($"Вы выбрали место с ID: {selectedSeat}");
+                lblSelectedSeat.Text = $"Выбранное место: {selectedSeat}";
+                LoadSeatPrice(selectedSeat);
             }
             else
             {
@@ -199,30 +200,59 @@ namespace TheaterApp
                 conn.Open();
 
                 // Получаем информацию о категории места
-                string categoryQuery = "SELECT \"Category\" FROM public.\"Seats\" WHERE \"idSeats\" = @seatId";
+                //string categoryQuery = "SELECT \"Category\" FROM public.\"Seats\" WHERE \"idSeats\" = @seatId";
+                //int categoryId = 0;
+                //using (var cmd = new NpgsqlCommand(categoryQuery, conn))
+                //{
+                //    cmd.Parameters.AddWithValue("seatId", seatId);
+                //    var result = cmd.ExecuteScalar();
+                //    if (result != null)
+                //    {
+                //        categoryId = Convert.ToInt32(result);
+                //    }
+                //}
+                string query = @"
+                    SELECT s.""Category""
+                    FROM public.""Seats"" s
+                    JOIN public.""PerformanceSchedule"" ps ON s.""Halls"" = ps.""Hall""
+                    WHERE ps.""idSchedule"" = @scheduleId
+                      AND s.""NumberSeats"" = @seatNumber";
+
                 int categoryId = 0;
-                using (var cmd = new NpgsqlCommand(categoryQuery, conn))
+
+                using (var cmd = new NpgsqlCommand(query, conn))
                 {
-                    cmd.Parameters.AddWithValue("seatId", seatId);
+                    cmd.Parameters.AddWithValue("scheduleId", scheduleId);
+                    cmd.Parameters.AddWithValue("seatNumber", seatId);
+
                     var result = cmd.ExecuteScalar();
                     if (result != null)
                     {
                         categoryId = Convert.ToInt32(result);
                     }
-                }
-
-                // Получаем информацию о расписании
-                string scheduleQuery = "SELECT \"idSchedule\" FROM public.\"PerformanceSchedule\" WHERE \"Hall\" IN (SELECT \"Halls\" FROM public.\"Seats\" WHERE \"idSeats\" = @seatId)";
-                int scheduleId = 0;
-                using (var cmd = new NpgsqlCommand(scheduleQuery, conn))
-                {
-                    cmd.Parameters.AddWithValue("seatId", seatId);
-                    var result = cmd.ExecuteScalar();
-                    if (result != null)
+                    else
                     {
-                        scheduleId = Convert.ToInt32(result);
+                        MessageBox.Show("Категория не найдена.");
                     }
                 }
+                // Получаем информацию о расписании
+                //string scheduleQuery = "SELECT \"idSchedule\" FROM public.\"PerformanceSchedule\" WHERE \"idSchedule\" = @scheduleId";
+                //using (var cmd = new NpgsqlCommand(scheduleQuery, conn))
+                //{
+                //    cmd.Parameters.AddWithValue("scheduleId", scheduleId);
+                //    using (var reader = cmd.ExecuteReader())
+                //    {
+                //        if (reader.Read())
+                //        {
+                //            // Запись найдена
+                //            scheduleId = reader.GetInt32(0);
+                //        }
+                //        else
+                //        {
+                //            MessageBox.Show("Расписание с таким id не найдено.");
+                //        }
+                //    }
+                //}
 
                 // Получаем цену для места на основе категории и расписания
                 string priceQuery = "SELECT \"Price\" FROM public.\"SeatPrices\" WHERE \"ScheduleId\" = @scheduleId AND \"CategoryId\" = @categoryId";
@@ -269,16 +299,34 @@ namespace TheaterApp
 
         private void btnBuy_Click(object sender, EventArgs e)
         {
-            if (selectedSeatId == -1)
+            if (selectedSeat == -1)
             {
                 MessageBox.Show("Выберите место для покупки.");
                 return;
             }
-
-            // Логика покупки билета
             using (var conn = new NpgsqlConnection("Host=localhost;Username=postgres;Password=0813;Database=\"Theatres\""))
             {
                 conn.Open();
+
+                // Получаем ID места
+                var getSeatIdCmd = new NpgsqlCommand(@"SELECT ""idSeats"" 
+                                               FROM public.""Seats"" s
+                                               JOIN public.""PerformanceSchedule"" ps ON s.""Halls"" = ps.""Hall""
+                                               WHERE ps.""idSchedule"" = @scheduleId
+                                               AND s.""NumberSeats"" = @seatNumber", conn);
+                getSeatIdCmd.Parameters.AddWithValue("scheduleId", scheduleId);
+                getSeatIdCmd.Parameters.AddWithValue("seatNumber", selectedSeat);
+
+                var result = getSeatIdCmd.ExecuteScalar();
+                if (result == null)
+                {
+                    MessageBox.Show("Место не найдено в базе данных.");
+                    return;
+                }
+
+                int selectedSeatId = Convert.ToInt32(result);
+                // Логика покупки билета
+                
 
                 decimal finalPrice = decimal.Parse(textBoxFinalPrice.Text);
                 var checkCmd = new NpgsqlCommand(@"SELECT COUNT(*) FROM public.""Tickets"" WHERE ""Schedule"" = @scheduleId AND ""Seats"" = @seatId", conn);
@@ -292,6 +340,7 @@ namespace TheaterApp
                     MessageBox.Show("Это место уже куплено другим пользователем.");
                     return;
                 }
+
                 var cmd = new NpgsqlCommand("INSERT INTO public.\"Tickets\" (\"Clients\", \"Schedule\", \"Seats\", \"PriceAfterDiscount\", \"DatePurchase\", \"Status\") VALUES (@clientId, @scheduleId, @seatId, @price, @purchaseDate, 1)", conn);
                 cmd.Parameters.AddWithValue("clientId", clientId);
                 cmd.Parameters.AddWithValue("scheduleId", scheduleId);
@@ -302,9 +351,9 @@ namespace TheaterApp
                 cmd.ExecuteNonQuery();
                 MessageBox.Show("Билет успешно куплен!");
                 this.Close();
+                
             }
         }
-
         private void btnCancel_Click(object sender, EventArgs e)
         {
             DialogResult result = MessageBox.Show(

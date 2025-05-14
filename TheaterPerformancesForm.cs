@@ -110,6 +110,7 @@ namespace TheaterApp
                 string performanceName = dataGridViewPerformances.Rows[e.RowIndex].Cells["PerformanceName"].Value.ToString();
 
                 // Открытие формы покупки билета
+
                 var form = new BuyTicketForm(clientId, scheduleId, performanceName);
                 form.ShowDialog();
             }

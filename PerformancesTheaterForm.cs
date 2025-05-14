@@ -125,6 +125,7 @@ namespace TheaterApp
                 string performance = performanceName;
 
                 // Открытие формы покупки билета
+
                 var form = new BuyTicketForm(clientId, scheduleId, performance);
                 form.ShowDialog();
             }

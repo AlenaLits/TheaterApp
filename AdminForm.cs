@@ -43,7 +43,7 @@ namespace TheaterApp
 
         private void buttonAddSeatCategory_Click(object sender, EventArgs e)
         {
-            var form = new AddCategorySeatsForm();
+            var form = new CategorySeatsListForm();
             form.ShowDialog();
         }
 

@@ -84,7 +84,7 @@
             this.cmbDiscounts.Name = "cmbDiscounts";
             this.cmbDiscounts.Size = new System.Drawing.Size(223, 24);
             this.cmbDiscounts.TabIndex = 4;
-            this.cmbDiscounts.SelectedIndexChanged += new System.EventHandler(this.cmbDiscounts_SelectedIndexChanged);
+            this.cmbDiscounts.Click += new System.EventHandler(this.cmbDiscounts_SelectedIndexChanged);
             // 
             // btnBuy
             // 
