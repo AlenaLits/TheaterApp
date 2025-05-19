@@ -95,7 +95,7 @@ namespace TheaterApp
                     t.""NameTheaters"",
                     p.""NamePerformances"",
                     COUNT(b.""idTickets"") AS TicketsSold,
-                    COALESCE(SUM(b.""PriceAfterDiscount""), 0) AS Revenue
+                    COALESCE(SUM(b.""Price""), 0) AS Revenue
                 FROM ""Tickets"" b
                 JOIN ""PerformanceSchedule"" s ON b.""Schedule"" = s.""idSchedule""
                 JOIN ""Performances"" p ON s.""Performance"" = p.""idPerformances""

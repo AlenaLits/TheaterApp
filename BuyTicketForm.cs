@@ -186,6 +186,7 @@ namespace TheaterApp
                 MessageBox.Show($"Вы выбрали место с ID: {selectedSeat}");
                 lblSelectedSeat.Text = $"Выбранное место: {selectedSeat}";
                 LoadSeatPrice(selectedSeat);
+                element.Style = "fill: orange; stroke: black; stroke-width: 2;"; // Выделяем цветом
             }
             else
             {
@@ -341,7 +342,7 @@ namespace TheaterApp
                     return;
                 }
 
-                var cmd = new NpgsqlCommand("INSERT INTO public.\"Tickets\" (\"Clients\", \"Schedule\", \"Seats\", \"PriceAfterDiscount\", \"DatePurchase\") VALUES (@clientId, @scheduleId, @seatId, @price, @purchaseDate)", conn);
+                var cmd = new NpgsqlCommand("INSERT INTO public.\"Tickets\" (\"Clients\", \"Schedule\", \"Seats\", \"Price\", \"DatePurchase\") VALUES (@clientId, @scheduleId, @seatId, @price, @purchaseDate)", conn);
                 cmd.Parameters.AddWithValue("clientId", clientId);
                 cmd.Parameters.AddWithValue("scheduleId", scheduleId);
                 cmd.Parameters.AddWithValue("seatId", selectedSeatId);

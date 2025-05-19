@@ -61,6 +61,14 @@ namespace TheaterApp
                 DataPropertyName = "ContactPhone",
                 Width = 100
             });
+            dataGridViewTheaters.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "MinPrice",
+                HeaderText = "Цена от",
+                DataPropertyName = "MinPrice",
+                Width = 90,
+                DefaultCellStyle = new DataGridViewCellStyle { Format = "C0" } // формат в рублях
+            });
             // Кнопка Спектакли
             dataGridViewTheaters.Columns.Add(new DataGridViewButtonColumn
             {
@@ -77,7 +85,25 @@ namespace TheaterApp
             using (var conn = new NpgsqlConnection(connString))
             {
                 conn.Open();
-                using (var da = new NpgsqlDataAdapter("SELECT \"idTheaters\", \"NameTheaters\", \"Address\", \"ContactPhone\" FROM public.\"Theaters\" ORDER BY \"NameTheaters\"", conn))
+                string query = @"
+                SELECT 
+                    t.""idTheaters"", 
+                    t.""NameTheaters"", 
+                    t.""Address"", 
+                    t.""ContactPhone"",
+                    (
+                        SELECT MIN(sp.""Price"")
+                        FROM ""PerformanceSchedule"" ps
+                        JOIN ""SeatPrices"" sp ON sp.""ScheduleId"" = ps.""idSchedule""
+                        JOIN ""Halls"" h ON ps.""Hall"" = h.""idHalls""
+                        JOIN ""Seats"" s ON s.""Halls"" = h.""idHalls""
+                        WHERE h.""Theaters"" = t.""idTheaters""
+                          AND sp.""CategoryId"" = s.""Category""
+                    ) AS ""MinPrice""
+                FROM public.""Theaters"" t
+                ORDER BY t.""NameTheaters"";
+                ";
+                using (var da = new NpgsqlDataAdapter(query, conn))
                 {
                     var dt = new DataTable();
                     da.Fill(dt);
@@ -87,7 +113,7 @@ namespace TheaterApp
         }
         private void dataGridViewTheaters_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == 4 && e.RowIndex >= 0)
+            if (e.ColumnIndex == 5 && e.RowIndex >= 0)
             {
                 int theaterId = (int)dataGridViewTheaters.Rows[e.RowIndex].Cells[0].Value;
                 string theaterName = dataGridViewTheaters.Rows[e.RowIndex].Cells[1].Value.ToString();

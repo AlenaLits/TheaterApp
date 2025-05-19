@@ -58,6 +58,14 @@ namespace TheaterApp
                 DataPropertyName = "DateTime",
                 Width = 150
             });
+            dataGridViewPerformances.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "MinPrice",
+                HeaderText = "Цена от",
+                DataPropertyName = "MinPrice",
+                Width = 100,
+                DefaultCellStyle = new DataGridViewCellStyle { Format = "C0" } // формат рубли
+            });
             dataGridViewPerformances.Columns.Add(new DataGridViewButtonColumn
             {
                 HeaderText = "Подробнее",
@@ -82,12 +90,20 @@ namespace TheaterApp
                 conn.Open();
 
                 string query = @"
-    SELECT ps.""idSchedule"", p.""NamePerformances"" AS ""PerformanceName"", ps.""DateTime""
-    FROM public.""PerformanceSchedule"" ps
-    JOIN public.""Performances"" p ON ps.""Performance"" = p.""idPerformances""
-    JOIN public.""Halls"" h ON ps.""Hall"" = h.""idHalls""
-    WHERE h.""Theaters"" = @theaterId
-    ORDER BY ps.""DateTime"";";
+                    SELECT 
+                    ps.""idSchedule"", 
+                    p.""NamePerformances"" AS ""PerformanceName"", 
+                    ps.""DateTime"",
+                    MIN(sp.""Price"") AS ""MinPrice""
+                FROM public.""PerformanceSchedule"" ps
+                JOIN public.""Performances"" p ON ps.""Performance"" = p.""idPerformances""
+                JOIN public.""Halls"" h ON ps.""Hall"" = h.""idHalls""
+                JOIN public.""Seats"" s ON s.""Halls"" = h.""idHalls""
+                JOIN public.""SeatPrices"" sp ON sp.""CategoryId"" = s.""Category"" AND sp.""ScheduleId"" = ps.""idSchedule""
+                WHERE h.""Theaters"" = @theaterId
+                GROUP BY ps.""idSchedule"", p.""NamePerformances"", ps.""DateTime""
+                ORDER BY ps.""DateTime"";
+                ";
 
                 using (var cmd = new NpgsqlCommand(query, conn))
                 {
@@ -104,7 +120,7 @@ namespace TheaterApp
 
         private void dataGridViewPerformances_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == 4 && e.RowIndex >= 0)
+            if (e.ColumnIndex == 5 && e.RowIndex >= 0)
             {
                 int scheduleId = (int)dataGridViewPerformances.Rows[e.RowIndex].Cells["idSchedule"].Value;
                 string performanceName = dataGridViewPerformances.Rows[e.RowIndex].Cells["PerformanceName"].Value.ToString();
@@ -114,7 +130,7 @@ namespace TheaterApp
                 var form = new BuyTicketForm(clientId, scheduleId, performanceName);
                 form.ShowDialog();
             }
-            if (e.ColumnIndex == 3 && e.RowIndex >= 0)
+            if (e.ColumnIndex == 4 && e.RowIndex >= 0)
             {
                 // Предположим, в DataGridView есть колонка с ID спектакля
                 int scheduleId = Convert.ToInt32(dataGridViewPerformances.Rows[e.RowIndex].Cells["idSchedule"].Value);

@@ -77,6 +77,14 @@ namespace TheaterApp
                 DataPropertyName = "Duration",
                 Width = 100
             });
+            dataGridViewPerformances.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "MinPrice",
+                HeaderText = "Цена от",
+                DataPropertyName = "MinPrice",
+                Width = 90,
+                DefaultCellStyle = new DataGridViewCellStyle { Format = "C0" } // форматирование в рублях
+            });
             // Кнопка Театры
             dataGridViewPerformances.Columns.Add(new DataGridViewButtonColumn
             {
@@ -94,17 +102,26 @@ namespace TheaterApp
             {
                 conn.Open();
                 using (var da = new NpgsqlDataAdapter(@"
-                    SELECT 
-                        p.""idPerformances"", 
-                        p.""NamePerformances"", 
-                        p.""Description"", 
-                        g.""NameGenre"" AS ""Genre"", 
-                        a.""ValueAgeRestrictions"" AS ""AgeRestrictions"", 
-                        p.""Duration""
-                    FROM public.""Performances"" p
-                    JOIN public.""Genre"" g ON p.""Genre"" = g.""idGenre""
-                    JOIN public.""AgeRestrictions"" a ON p.""AgeRestrictions"" = a.""idAgeRestrictions""
-                    ORDER BY p.""NamePerformances""
+                SELECT 
+                    p.""idPerformances"", 
+                    p.""NamePerformances"", 
+                    p.""Description"", 
+                    g.""NameGenre"" AS ""Genre"", 
+                    a.""ValueAgeRestrictions"" AS ""AgeRestrictions"", 
+                    p.""Duration"",
+                    (
+                        SELECT MIN(sp.""Price"") 
+                        FROM ""PerformanceSchedule"" ps
+                        JOIN ""SeatPrices"" sp ON sp.""ScheduleId"" = ps.""idSchedule""
+                        JOIN ""Halls"" h ON ps.""Hall"" = h.""idHalls""
+                        JOIN ""Seats"" s ON s.""Halls"" = h.""idHalls""
+                        WHERE ps.""Performance"" = p.""idPerformances""
+                          AND sp.""CategoryId"" = s.""Category""
+                    ) AS ""MinPrice""
+                FROM public.""Performances"" p
+                JOIN public.""Genre"" g ON p.""Genre"" = g.""idGenre""
+                JOIN public.""AgeRestrictions"" a ON p.""AgeRestrictions"" = a.""idAgeRestrictions""
+                ORDER BY p.""NamePerformances"";
                 ", conn))
                 {
                     var dt = new DataTable();
@@ -115,7 +132,7 @@ namespace TheaterApp
         }
         private void dataGridViewTheaters_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == 6 && e.RowIndex >= 0)
+            if (e.ColumnIndex == 7 && e.RowIndex >= 0)
             {
                 int performanceId = (int)dataGridViewPerformances.Rows[e.RowIndex].Cells[0].Value;
                 string performanceName = dataGridViewPerformances.Rows[e.RowIndex].Cells[1].Value.ToString();

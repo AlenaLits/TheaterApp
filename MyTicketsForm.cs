@@ -92,7 +92,7 @@ namespace TheaterApp
                         h.""NameHalls"" AS ""HallName"",
                         s.""DateTime"" AS ""DateTime"",
                         se.""NumberSeats"" AS ""SeatNumber"",
-                        b.""PriceAfterDiscount"" AS ""TicketPrice""
+                        b.""Price"" AS ""TicketPrice""
                     FROM ""Tickets"" b
                     JOIN ""PerformanceSchedule"" s ON b.""Schedule"" = s.""idSchedule""
                     JOIN ""Performances"" p ON s.""Performance"" = p.""idPerformances""
